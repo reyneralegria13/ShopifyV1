@@ -1,15 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
-
+const { engine } = require('express-handlebars'); // Importando 'engine' corretamente
 const app = express();
 
 // Conexão com o MongoDB
 mongoose.connect('mongodb://localhost:27017/fornecedores', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Configuração do Handlebars
-app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'main', layoutsDir: 'views/layouts' }));
+app.engine('hbs', engine({ extname: 'hbs', defaultLayout: 'main', layoutsDir: 'views/layouts' }));
 app.set('view engine', 'hbs');
 
 // Middleware
