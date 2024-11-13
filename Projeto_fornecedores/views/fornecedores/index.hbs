@@ -1,0 +1,7 @@
+<h1>Fornecedores</h1>
+<a href="/fornecedores/novo">Adicionar Fornecedor</a>
+<ul>
+  {{#each fornecedores}}
+    <li>{{nome}} - <a href="/fornecedores/edit/{{_id}}">Editar</a> | <a href="/fornecedores/delete/{{_id}}">Excluir</a></li>
+  {{/each}}
+</ul>

@@ -1,0 +1,8 @@
+<h1>Editar Fornecedor</h1>
+<form action="/fornecedores/edit/{{fornecedor._id}}" method="POST">
+  <input type="text" name="nome" value="{{fornecedor.nome}}" required>
+  <input type="text" name="contato" value="{{fornecedor.contato}}">
+  <input type="text" name="endereco" value="{{fornecedor.endereco}}">
+  <input type="text" name="categoria" value="{{fornecedor.categoria}}">
+  <button type="submit">Atualizar</button>
+</form>
