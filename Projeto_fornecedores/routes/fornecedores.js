@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Fornecedor = require('../Models/fornecedor');
+const Fornecedor = require('../models/fornecedor');
 
 // Listar fornecedores
 router.get('/', async (req, res) => {
