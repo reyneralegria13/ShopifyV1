@@ -11,7 +11,10 @@ const fornRoutes = require('./routes/fornecedores');
 // Configuração do Handlebars
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
+
+//essa rota vai para main.hbs (home)
 app.use('/fornecedores', fornRoutes);
 
 // Middleware
