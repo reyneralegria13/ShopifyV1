@@ -5,7 +5,10 @@ const Fornecedor = require('../Models/fornecedor');
 // Listar fornecedores
 router.get('/', async (req, res) => {
   const fornecedores = await Fornecedor.find();
-  res.render('fornecedores/index', { fornecedores });
+  res.render('fornecedores/index', {
+    title: 'Fornecedores',
+    style: 'main.css',
+  });
 });
 
 // Formulário de criação

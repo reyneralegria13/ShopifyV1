@@ -8,20 +8,23 @@ const app = express();
 // Conexão com o MongoDB
 const connectDb = require('./App');
 const fornRoutes = require('./src/routes/fornecedores');
+const { title } = require('process');
 // Configuração do Handlebars
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('public'));
+
+// Teoricamente essas partes são para facilitar a estilização style
+app.use(express.static('assets'));
 app.use(express.static(path.join(__dirname, "assets")));
 
 //essa rota vai para main.hbs (home)
 app.use('/fornecedores', fornRoutes);
 
 // Middleware
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 app.engine('hbs', engine({ 
     extname: 'hbs',
-    layoutsDir: path.join(__dirname, 'views/layouts'),
+    layoutsDir: path.join(__dirname, 'src/views/layouts'),
     defaultLayout: 'main.hbs' 
 }));
 app.set('view engine', 'hbs');
