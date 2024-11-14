@@ -6,7 +6,7 @@ const { engine } = require('express-handlebars'); // Importando 'engine' correta
 const app = express();
 
 // Conexão com o MongoDB
-const connectDb = require('./db');
+const connectDb = require('./App');
 const fornRoutes = require('./routes/fornecedores');
 // Configuração do Handlebars
 app.use(bodyParser.urlencoded({ extended: true }));
