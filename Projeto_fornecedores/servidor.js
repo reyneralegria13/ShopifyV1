@@ -7,7 +7,7 @@ const app = express();
 
 // Conexão com o MongoDB
 const connectDb = require('./App');
-const fornRoutes = require('./routes/fornecedores');
+const fornRoutes = require('./src/routes/fornecedores');
 // Configuração do Handlebars
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
