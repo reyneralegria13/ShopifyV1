@@ -23,6 +23,10 @@ app.engine('hbs', engine({
 }));
 app.set('view engine', 'hbs');
 
+// rota inicial de testes
+app.get('/', (req, res) => {
+    res.send('Servidor funcionando corretamente');
+});
 
 // Rotas
 connectDb()
