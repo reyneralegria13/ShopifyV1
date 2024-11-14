@@ -7,9 +7,11 @@ router.get('/', async (req, res) => {
   const fornecedores = await Fornecedor.find();
   res.render('fornecedores/index', {
     title: 'Fornecedores',
-    style: 'main.css',
+    style: 'main.css', 
+    fornecedores
   });
 });
+
 
 // Formulário de criação
 router.get('/novo', (req, res) => {

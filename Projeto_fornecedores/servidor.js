@@ -9,13 +9,14 @@ const app = express();
 const connectDb = require('./App');
 const fornRoutes = require('./src/routes/fornecedores');
 const { title } = require('process');
+
 // Configuração do Handlebars
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Teoricamente essas partes são para facilitar a estilização style
-app.use(express.static('assets'));
-app.use(express.static(path.join(__dirname, "assets")));
+//app.use(express.static('assets'));
+app.use(express.static(path.join(__dirname, 'src/assets')));
 
 //essa rota vai para main.hbs (home)
 app.use('/fornecedores', fornRoutes);
