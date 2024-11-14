@@ -38,7 +38,7 @@ router.post('/edit/:id', async (req, res) => {
 
 // Deletar fornecedor
 router.get('/delete/:id', async (req, res) => {
-  await Fornecedor.findByIdAndRemove(req.params.id);
+  await Fornecedor.findByIdAndDelete(req.params.id);
   res.redirect('/fornecedores');
 });
 

@@ -23,10 +23,15 @@ app.use('/fornecedores', fornRoutes);
 
 // Middleware
 app.set('views', path.join(__dirname, 'src/views'));
+
 app.engine('hbs', engine({ 
     extname: 'hbs',
     layoutsDir: path.join(__dirname, 'src/views/layouts'),
-    defaultLayout: 'main.hbs' 
+    defaultLayout: 'main.hbs',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    }
 }));
 app.set('view engine', 'hbs');
 

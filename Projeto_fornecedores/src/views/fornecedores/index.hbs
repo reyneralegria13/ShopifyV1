@@ -3,10 +3,12 @@
   <div>
     <a href="/fornecedores/novo" class="button">Adicionar Fornecedor</a>
   </div>
-</div>
 
-<ul>
+  <ul>
   {{#each fornecedores}}
     <li>{{nome}} - <a href="/fornecedores/edit/{{_id}}">Editar</a> | <a href="/fornecedores/delete/{{_id}}">Excluir</a></li>
   {{/each}}
 </ul>
+
+</div>
+
