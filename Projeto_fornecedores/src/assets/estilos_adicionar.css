@@ -1,50 +1,195 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #2a2a2a;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  }
-  
-  h1 {
-    color: #4CAF50;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  input[type="text"] {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    background-color: #3a3a3a;
-    color: #ffffff;
-  }
-  
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+h1 {
+  color: #4CAF50;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+select {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #3a3a3a;
+  color: #ffffff;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.pedido {
+  background-color: #3a3a3a;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 3px;
+}
+
+.quantidade-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  background-color: #2a2a2a;
+  padding: 8px;
+  border-radius: 3px;
+  width: fit-content;
+}
+
+.btn-quantidade {
+  background-color: #4CAF50;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin: 0;
+}
+
+.btn-quantidade:hover {
+  background-color: #45a049;
+}
+
+.quantidade-input {
+  width: 50px;
+  text-align: center;
+  background-color: #3a3a3a;
+  border: none;
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+#adicionarPedido {
+  background-color: #3a3a3a;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+  margin: 20px 0;
+  width: 100%;
+}
+
+#adicionarPedido:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+label {
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+input[type="date"] {
+  background-color: #3a3a3a;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  margin-bottom: 15px;
+  width: calc(100% - 20px);
+}
+
+/* Estilo para o calendário em navegadores webkit */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.quantidade-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  background-color: #3a3a3a;
+  padding: 8px;
+  border-radius: 3px;
+  width: fit-content;
+}
+
+.btn-quantidade {
+  background-color: #4CAF50;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+.quantidade-input {
+  width: 50px;
+  text-align: center;
+  background-color: #2a2a2a;
+  border: none;
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+#pedidos h2 {
+  color: #4CAF50;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+input[type="date"] {
+  background-color: #3a3a3a;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+label {
+  color: #ffffff;
+  margin-bottom: 5px;
+  display: block;
+}

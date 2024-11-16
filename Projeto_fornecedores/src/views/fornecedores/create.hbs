@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adicionar Fornecedor</title>
-  <link rel="stylesheet" href="estilos_adicionar.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Fornecedor</title>
+    <link rel="stylesheet" href="estilos_adicionar.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Adicionar Fornecedor</h1>
-    <form action="/fornecedores" method="POST">
-      <input type="text" name="nome" placeholder="Nome" required>
-      <input type="text" name="contato" placeholder="Contato">
-      <input type="text" name="endereco" placeholder="Endereço">
-      <input type="text" name="categoria" placeholder="Categoria">
-      <button type="submit">Salvar</button>
-    </form>
-  </div>
+    <div class="container">
+        <h1>Adicionar Fornecedor</h1>
+        <form action="/fornecedores" method="POST">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="text" name="contato" placeholder="Contato">
+            <input type="text" name="endereco" placeholder="Endereço">
+            
+            <label>Data de entrega (início):</label>
+            <input type="date" name="dataEntregaInicio">
+            
+            <label>Data de entrega (fim):</label>
+            <input type="date" name="dataEntregaFim">
+            
+            <div id="pedidos">
+                <h2>Pedidos</h2>
+                <div class="pedido">
+                    <input type="text" name="pedidos[0][item]" placeholder="Item (ex: coxa de frango)">
+                    <div class="quantidade-container">
+                        <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
+                        <input type="number" name="pedidos[0][quantidade]" value="0" readonly class="quantidade-input">
+                        <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="adicionarPedido">Adicionar Pedido</button>
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+    <script src="/js/fornecedor.js"></script>
 </body>
 </html>

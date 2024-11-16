@@ -28,15 +28,23 @@ router.get('/novo', (req, res) => {
 // Adicionar fornecedor
 router.post('/', async (req, res) => {
   try {
-    await Fornecedor.create(req.body);
-    res.redirect('/fornecedores');
+      const fornecedorData = {
+          nome: req.body.nome,
+          contato: req.body.contato,
+          endereco: req.body.endereco,
+          dataEntregaInicio: req.body.dataEntregaInicio,
+          dataEntregaFim: req.body.dataEntregaFim,
+          pedidos: Array.isArray(req.body.pedidos) ? req.body.pedidos : [req.body.pedidos]
+      };
+      await Fornecedor.create(fornecedorData);
+      res.redirect('/fornecedores');
   } catch (error) {
-    console.error('Erro ao adicionar fornecedor:', error);
-    res.status(400).render('fornecedores/create', {
-      title: 'Adicionar Fornecedor',
-      style: 'estilos_adicionar.css',
-      error: 'Erro ao adicionar fornecedor. Por favor, tente novamente.'
-    });
+      console.error('Erro ao adicionar fornecedor:', error);
+      res.status(400).render('fornecedores/create', {
+          title: 'Adicionar Fornecedor',
+          style: 'estilos_adicionar.css',
+          error: 'Erro ao adicionar fornecedor. Por favor, tente novamente.'
+      });
   }
 });
 
@@ -78,7 +86,7 @@ router.post('/edit/:id', async (req, res) => {
 });
 
 // Deletar fornecedor
-router.post('/delete/:id', async (req, res) => {
+router.get('/delete/:id', async (req, res) => {
   try {
     const fornecedor = await Fornecedor.findByIdAndDelete(req.params.id);
     if (!fornecedor) {
