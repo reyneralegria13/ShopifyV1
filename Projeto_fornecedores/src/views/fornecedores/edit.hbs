@@ -1,8 +1,21 @@
-<h1>Editar Fornecedor</h1>
-<form action="/fornecedores/edit/{{fornecedor._id}}" method="POST">
-  <input type="text" name="nome" value="{{fornecedor.nome}}" required>
-  <input type="text" name="contato" value="{{fornecedor.contato}}">
-  <input type="text" name="endereco" value="{{fornecedor.endereco}}">
-  <input type="text" name="categoria" value="{{fornecedor.categoria}}">
-  <button type="submit">Atualizar</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Fornecedor</title>
+  <link rel="stylesheet" href="estilos_editar.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Editar Fornecedor</h1>
+    <form action="/fornecedores/edit/{{fornecedor._id}}" method="POST">
+      <input type="text" name="nome" value="{{fornecedor.nome}}" required>
+      <input type="text" name="contato" value="{{fornecedor.contato}}">
+      <input type="text" name="endereco" value="{{fornecedor.endereco}}">
+      <input type="text" name="categoria" value="{{fornecedor.categoria}}">
+      <button type="submit">Atualizar</button>
+    </form>
+  </div>
+</body>
+</html>
