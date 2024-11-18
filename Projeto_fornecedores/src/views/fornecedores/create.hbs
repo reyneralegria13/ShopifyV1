@@ -24,6 +24,7 @@
                         <input type="number" name="pedidos[0][quantidade]" value="0"  class="quantidade-input">
                         <button type="button" class="btn-quantidade" onclick= 'aumentarQuantidade(this)'>+</button>
                     </div>
+                    
                 </div>
             </div>
             <button type="button" id="adicionarPedido">Adicionar Pedido</button>
@@ -47,6 +48,7 @@
                 <input type="number" name="pedidos[${pedidoCount}][quantidade]" value="0" readonly class="quantidade-input">
                 <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
             </div>
+             <button type="button" class="btn-remover" onclick="removerPedido(this)">Remover</button>
         `;
         pedidosContainer.appendChild(novoPedido);
         pedidoCount++;
@@ -64,6 +66,11 @@ function diminuirQuantidade(btn) {
         input.value = parseInt(input.value) - 1;
     }
 }
+
+ function removerPedido(button) {
+      const pedidoDiv = button.parentElement;
+      pedidoDiv.remove();
+    }
     </script>
 </body>
 </html>
