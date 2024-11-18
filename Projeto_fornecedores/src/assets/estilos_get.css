@@ -85,6 +85,21 @@ body, h1, h2, p, div {
     border: 1px solid #ddd;
     border-radius: 4px;
   }
+  button {
+    background-color: #2a7ae4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #1d5bbf;
+  }
   
   /* Link de voltar 
   .container a {
