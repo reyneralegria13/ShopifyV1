@@ -10,12 +10,83 @@
   <div class="container">
     <h1>Editar Fornecedor</h1>
     <form action="/fornecedores/edit/{{fornecedor._id}}" method="POST">
-      <input type="text" name="nome" value="{{fornecedor.nome}}" required>
-      <input type="text" name="contato" value="{{fornecedor.contato}}">
-      <input type="text" name="endereco" value="{{fornecedor.endereco}}">
-      <input type="text" name="categoria" value="{{fornecedor.categoria}}">
+      <!-- Informações do Fornecedor -->
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" value="{{fornecedor.nome}}" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contato">Contato</label>
+        <input type="text" id="contato" name="contato" value="{{fornecedor.contato}}">
+      </div>
+      
+      <div class="form-group">
+        <label for="endereco">Endereço</label>
+        <input type="text" id="endereco" name="endereco" value="{{fornecedor.endereco}}">
+      </div>
+      
+            
+     
+
+      <!-- Pedidos -->
+      <div id="pedidos-section">
+        <h2>Pedidos</h2>
+        <button type="button" id="adicionarPedido">Adicionar Pedido</button>
+        
+        <div id="pedidos">
+          {{#each fornecedor.pedidos}}
+            <div class="pedido">
+              <label for="item-{{@index}}">Item</label>
+              <input type="text" id="item-{{@index}}" name="pedidos[{{@index}}][item]" value="{{this.item}}" placeholder="Ex: Coxa de Frango">
+
+              <label for="quantidade-{{@index}}">Quantidade</label>
+              <div class="quantidade-container">
+                <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
+                <input type="number" id="quantidade-{{@index}}" name="pedidos[{{@index}}][quantidade]" value="{{this.quantidade}}" readonly class="quantidade-input">
+                <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      
       <button type="submit">Atualizar</button>
     </form>
   </div>
+
+  <script>
+    // Adicionar novo pedido
+    document.getElementById('adicionarPedido').addEventListener('click', () => {
+      const pedidosContainer = document.getElementById('pedidos');
+      const index = pedidosContainer.children.length;
+
+      const pedidoDiv = document.createElement('div');
+      pedidoDiv.classList.add('pedido');
+      pedidoDiv.innerHTML = `
+        <label for="item-${index}">Item</label>
+        <input type="text" id="item-${index}" name="pedidos[${index}][item]" placeholder="Ex: Coxa de Frango">
+
+        <label for="quantidade-${index}">Quantidade</label>
+        <div class="quantidade-container">
+          <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
+          <input type="number" id="quantidade-${index}" name="pedidos[${index}][quantidade]" value="1" class="quantidade-input">
+          <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
+        </div>
+      `;
+      pedidosContainer.appendChild(pedidoDiv);
+    });
+
+    // Funções para ajustar quantidade
+    function diminuirQuantidade(button) {
+      const input = button.nextElementSibling;
+      if (input.value > 1) input.value--;
+    }
+
+    function aumentarQuantidade(button) {
+      const input = button.previousElementSibling;
+      input.value++;
+    }
+  </script>
 </body>
 </html>

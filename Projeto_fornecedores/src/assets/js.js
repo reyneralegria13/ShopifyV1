@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function aumentarQuantidade(btn) {
     const input = btn.previousElementSibling;
-    input.value = parseInt(input.value) + 1;
+    input.value = parseInt(input.value) + 5;
 }
 
 function diminuirQuantidade(btn) {

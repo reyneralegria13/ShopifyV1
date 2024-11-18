@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
 // Formulário de edição
 router.get('/edit/:id', async (req, res) => {
   try {
-    const fornecedor = await Fornecedor.findById(req.params.id);
+    const fornecedor = await Fornecedor.findOne({ _id: req.params.id });
     if (!fornecedor) {
       return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
     }
