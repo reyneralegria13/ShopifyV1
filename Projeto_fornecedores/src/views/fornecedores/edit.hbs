@@ -26,9 +26,6 @@
         <input type="text" id="endereco" name="endereco" value="{{fornecedor.endereco}}">
       </div>
       
-            
-     
-
       <!-- Pedidos -->
       <div id="pedidos-section">
         <h2>Pedidos</h2>
@@ -40,18 +37,22 @@
               <label for="item-{{@index}}">Item</label>
               <input type="text" id="item-{{@index}}" name="pedidos[{{@index}}][item]" value="{{this.item}}" placeholder="Ex: Coxa de Frango">
 
-              <label for="quantidade-{{@index}}">Quantidade</label>
+            
               <div class="quantidade-container">
+                <label for="quantidade-{{@index}}">Quantidade</label>
                 <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
                 <input type="number" id="quantidade-{{@index}}" name="pedidos[{{@index}}][quantidade]" value="{{this.quantidade}}" readonly class="quantidade-input">
                 <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
+                
               </div>
+              <button type="button" class="btn-remover" onclick="removerPedido(this)">Remover</button>
             </div>
           {{/each}}
         </div>
       </div>
       
       <button type="submit">Atualizar</button>
+      <button type="submit">voltar</button>
     </form>
   </div>
 
@@ -73,6 +74,7 @@
           <input type="number" id="quantidade-${index}" name="pedidos[${index}][quantidade]" value="1" class="quantidade-input">
           <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
         </div>
+        <button type="button" class="btn-remover" onclick="removerPedido(this)">Remover</button>
       `;
       pedidosContainer.appendChild(pedidoDiv);
     });
@@ -86,6 +88,12 @@
     function aumentarQuantidade(button) {
       const input = button.previousElementSibling;
       input.value++;
+    }
+
+    // Função para remover pedido
+    function removerPedido(button) {
+      const pedidoDiv = button.parentElement;
+      pedidoDiv.remove();
     }
   </script>
 </body>

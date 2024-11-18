@@ -21,7 +21,7 @@
                     <input type="text" name="pedidos[0][item]" placeholder="Item (ex: coxa de frango)">
                     <div class="quantidade-container">
                         <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
-                        <input type="number" name="pedidos[0][quantidade]" value="0" readonly class="quantidade-input">
+                        <input type="number" name="pedidos[0][quantidade]" value="0"  class="quantidade-input">
                         <button type="button" class="btn-quantidade" onclick= 'aumentarQuantidade(this)'>+</button>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
 
 function aumentarQuantidade(btn) {
     const input = btn.previousElementSibling;
-    input.value = parseInt(input.value) + 5;
+    input.value = parseInt(input.value) + 1;
 }
 
 function diminuirQuantidade(btn) {

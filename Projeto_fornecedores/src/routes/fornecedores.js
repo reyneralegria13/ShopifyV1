@@ -17,6 +17,26 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+// Visualizar fornecedor (detalhes em modo leitura)
+router.get('/get/:id', async (req, res) => {
+  try {
+    const fornecedor = await Fornecedor.findOne({ _id: req.params.id });
+    if (!fornecedor) {
+      return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
+    }
+    res.render('fornecedores/get', {
+      title: 'Visualizar Fornecedor',
+      style: 'estilos_get.css',
+      fornecedor
+    });
+  } catch (error) {
+    console.error('Erro ao carregar fornecedor:', error);
+    res.status(500).render('error', { message: 'Erro ao carregar fornecedor' });
+  }
+});
+
+
 // Formulário de criação
 router.get('/novo', (req, res) => {
   res.render('fornecedores/create', {
