@@ -10,7 +10,6 @@ const FornecedorSchema = new mongoose.Schema({
     contato: { type: String, required: true },
     endereco: { type: String, required: true },
     pedidos: [PedidoSchema],
-    status: { type: String, enum: ['Ativo', 'Inativo'], default: 'Ativo' },
-}, { timestamps: true });
+});
 
 module.exports = mongoose.model('Fornecedor', FornecedorSchema);
