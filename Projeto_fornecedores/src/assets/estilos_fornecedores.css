@@ -32,11 +32,34 @@ h1 {
   text-decoration: none;
   display: inline-block;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .button:hover {
-  background-color: #1d5bbf;
+  background-color: #1404f8ce;
+
 }
+
+.button3 {
+  background-color: #2a7ae4;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.button3:hover {
+  background-color: #1404f8ce;
+  color: white;
+
+}
+
 
 ul {
   list-style-type: none;
@@ -59,7 +82,7 @@ a {
 }
 
 a:hover {
-  color: #1d5bbf;
+  color: #1900ff;
 }
 
 .button2{

@@ -105,6 +105,7 @@ button:disabled {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .quantidade-input {
@@ -166,4 +167,7 @@ button:disabled {
   #adicionarPedido {
     margin-top: 100px;
   }
+  .btn-remover {
+    margin-top: 10px;
+    }
 }

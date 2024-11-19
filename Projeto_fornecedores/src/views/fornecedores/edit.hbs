@@ -68,8 +68,9 @@
         <label for="item-${index}">Item</label>
         <input type="text" id="item-${index}" name="pedidos[${index}][item]" placeholder="Ex: Coxa de Frango">
 
-        <label for="quantidade-${index}">Quantidade</label>
+        
         <div class="quantidade-container">
+         <label for="quantidade-${index}">Quantidade</label>
           <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
           <input type="number" id="quantidade-${index}" name="pedidos[${index}][quantidade]" value="1" class="quantidade-input">
           <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
