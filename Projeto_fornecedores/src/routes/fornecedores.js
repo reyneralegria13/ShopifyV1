@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Fornecedor = require('../Models/fornecedor');
+const mongoose = require('mongoose')
 
 // Listar fornecedores
 router.get('/', async (req, res) => {
@@ -16,7 +17,6 @@ router.get('/', async (req, res) => {
     res.status(500).render('error', { message: 'Erro ao carregar fornecedores' });
   }
 });
-
 
 // Visualizar fornecedor (detalhes em modo leitura)
 router.get('/get/:id', async (req, res) => {
@@ -107,15 +107,22 @@ router.post('/edit/:id', async (req, res) => {
 
 // Deletar fornecedor
 router.get('/delete/:id', async (req, res) => {
+  const { id } = req.params;
+
+  // Validação do ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).render('error', { message: 'ID inválido fornecido.' });
+  }
+
   try {
-    const fornecedor = await Fornecedor.findByIdAndDelete(req.params.id);
+    const fornecedor = await Fornecedor.findByIdAndDelete(id);
     if (!fornecedor) {
-      return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
+      return res.status(404).render('error', { message: 'Fornecedor não encontrado.' });
     }
     res.redirect('/fornecedores');
   } catch (error) {
     console.error('Erro ao deletar fornecedor:', error);
-    res.status(500).render('error', { message: 'Erro ao deletar fornecedor' });
+    res.status(500).render('error', { message: 'Erro ao deletar fornecedor. Tente novamente mais tarde.' });
   }
 });
 

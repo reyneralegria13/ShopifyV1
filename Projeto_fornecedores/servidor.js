@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'src/assets')));
 
 //essa rota vai para main.hbs (home)
 app.use('/fornecedores', fornRoutes);
+app.get('/', fornRoutes);
 
 // Middleware
 app.set('views', path.join(__dirname, 'src/views'));
@@ -36,9 +37,11 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs');
 
 // rota inicial de testes
+/*
 app.get('/', (req, res) => {
     res.send('Servidor funcionando corretamente');
 });
+*/
 
 // Rotas
 connectDb()
