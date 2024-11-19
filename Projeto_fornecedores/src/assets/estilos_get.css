@@ -71,6 +71,7 @@ body, h1, h2, p, div {
     margin-bottom: 10px;
     border-bottom: 2px solid #f4f4f4;
     padding-bottom: 5px;
+    margin-top: 10px;
   }
   
   #pedidos-section ul {
@@ -100,7 +101,26 @@ body, h1, h2, p, div {
   button:hover {
     background-color: #1d5bbf;
   }
-  
+  .back-button{
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+  margin-top: 50px;
+  margin-top: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  background-color: #2a7ae4;
+  color: white;
+  padding: 10px 47%;
+  border: none;
+  border-radius: 5px;
+  margin: 10px1 10;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  }
   /* Link de voltar 
   .container a {
     display: inline-block;
