@@ -29,7 +29,7 @@ h1 {
   margin-bottom: 30px;
 }
 
-.button1 {
+.button {
   background-color: #2a7ae4;
   color: white;
   padding: 10px 15px;
@@ -44,12 +44,15 @@ h1 {
   width: 25%;
 }
 
-.button1:hover {
+.button:hover {
   background-color: #3788f1ea;
 
 }
 
 .button3 {
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
   background-color: #2a7ae4;
   color: white;
   padding: 10px 15px;
@@ -58,11 +61,17 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-decoration: none;
-  display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
+.button3 svg {
+  display: inline-block; 
+  vertical-align: middle; 
+  width: 20px; 
+  height: 20px; 
+  fill: currentColor; 
+}
 .button3:hover {
   background-color: #1404f8ce;
   color: white;
