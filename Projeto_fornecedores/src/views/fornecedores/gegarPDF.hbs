@@ -4,12 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visualizar Fornecedor</title>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" 
+  integrity="sha512-MpDFIChbcXl2QgipQrt1VcPHMldRILetapBl5MPCA9Y8r7qvlwx1/Mc9hNTzY+kS5kX6PdoDq41ws1HiVNLdZA==" 
+  crossorigin="anonymous" 
+  referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
-  <div class="container">
-    <h1>Visualizar Fornecedor</h1>
-    <!-- Informações do Fornecedor -->
+  <div class="container" id="container">
+     <!-- Informações do Fornecedor -->
+    <div id="pdf">
     <div class="form-group">
       <label for="nome">Nome</label>
       <span id="nome">{{fornecedor.nome}}</span>
@@ -42,9 +46,30 @@
       </div>
      
     </div>
-    <button class="gerar-pdf" id="gerar-pdf" onclick="window.location.href = '/fornecedores/pdf/{{fornecedor._id}}';">Visualizar PDF</button>
-    <button class="back-button" id="backButton" onclick="window.location.href = '/fornecedores';">Voltar</button>
-    
+    </div>
+     <button class="back-button" id="backButton" onclick="window.location.href = '/fornecedores/get/{{fornecedor._id}}';">Voltar</button>
+     <button id="generate-pdf">Gerar PDF</button>
   </div>
+ 
+
 </body>
+<script>
+    const btnGererate = document.querySelector('#generate-pdf');
+    const nome = document.querySelector('#nome');
+
+btnGererate.addEventListener('click', () => {
+    
+const pdf = document.querySelector('#pdf');
+const options = {
+
+    margin: [10, 10, 10, 10], 
+    filename: `fornecedores_${nome.textContent}.pdf`,
+    html2canvas: {scale: 2},
+    jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+}
+
+html2pdf().set(options).from(pdf).save();
+
+});
+</script>
 </html>

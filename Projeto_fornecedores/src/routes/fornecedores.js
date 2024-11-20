@@ -36,6 +36,23 @@ router.get('/get/:id', async (req, res) => {
   }
 });
 
+router.get('/pdf/:id', async (req, res) => {
+  try {
+    const fornecedor = await Fornecedor.findOne({ _id: req.params.id });
+    if (!fornecedor) {
+      return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
+    }
+    res.render('fornecedores/gegarPDF', {
+      title: 'Visualizar Fornecedor',
+      style: 'estilo_pdf.css',
+      fornecedor
+    });
+  } catch (error) {
+    console.error('Erro ao carregar fornecedor:', error);
+    res.status(500).render('error', { message: 'Erro ao carregar fornecedor' });
+  }
+});
+
 
 // Formulário de criação
 router.get('/novo', (req, res) => {
