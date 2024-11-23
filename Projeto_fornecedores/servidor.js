@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'src/assets')));
 
 //essa rota vai para main.hbs (home)
 
-app.get('/Home/fornecedore', fornRoutes);
+app.get('/', fornRoutes);
 
 // Middleware
 app.set('views', path.join(__dirname, 'src/views'));

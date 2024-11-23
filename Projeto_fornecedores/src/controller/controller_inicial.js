@@ -6,7 +6,7 @@ const fornRoutes = require('../routes/fornecedores');
 // Listar fornecedores
 const Home = async (req, res) => {
   try {
-        res.render('fornecedores/home', {
+        res.render('Inicio/home', {
       title: 'Fornecedores',
       style: 'estilos_fornecedores.css', 
           });

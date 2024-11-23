@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
-
-const PedidoSchema = new mongoose.Schema({
-    item: { type: String, required: true },
-    quantidade: { type: Number, required: true }
-});
+const PedidoSchema = require('./pedidos')
 
 const FornecedorSchema = new mongoose.Schema({
-    nome: { type: String, required: true, index: true },
-    contato: { type: String, required: true },
-    endereco: { type: String, required: true },
+    nome: { type: String, index: true },
+    contato: { type: String  },
+    endereco: { type: String },
     pedidos: [PedidoSchema],
+    //clientes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Loja'}],
 });
 
-module.exports = mongoose.model('Fornecedor', FornecedorSchema);
+
+module.exports = mongoose.model('Fornecedor', FornecedorSchema)
+
