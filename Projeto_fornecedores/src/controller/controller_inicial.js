@@ -8,7 +8,7 @@ const Home = async (req, res) => {
   try {
         res.render('Inicio/home', {
       title: 'Fornecedores',
-      style: 'estilos_fornecedores.css', 
+      style: 'inicial/estilos_home.css', 
           });
   } catch (error) {
     console.error('Erro ao listar fornecedores:', error);

@@ -11,7 +11,7 @@ const listarFornecedores = async (req, res) => {
     const fornecedores = await Fornecedor.find();
     res.render('fornecedores/index', {
       title: 'Fornecedores',
-      style: 'estilos_fornecedores.css', 
+      style: 'fornecedor/estilos_fornecedores.css', 
       fornecedores
     });
   } catch (error) {
@@ -29,7 +29,7 @@ const visualizarFornecedor = async (req, res) => {
     }
     res.render('fornecedores/get', {
       title: 'Visualizar Fornecedor',
-      style: 'estilos_get.css',
+      style: 'fornecedor/estilos_get.css',
       fornecedor
     });
   } catch (error) {
@@ -45,7 +45,7 @@ const visualizarFornecedor = async (req, res) => {
 const criarFornecedor = (req, res) => {
   res.render('fornecedores/create', {
     title: 'Adicionar Fornecedor',
-    style: 'estilos_adicionar.css'
+    style: 'fornecedor/estilos_adicionar.css'
   });
 };
 
@@ -66,7 +66,7 @@ const adicionarFornecedor = async (req, res) => {
       console.error('Erro ao adicionar fornecedor:', error);
       res.status(400).render('fornecedores/create', {
           title: 'Adicionar Fornecedor',
-          style: 'estilos_adicionar.css',
+          style: 'fornecedor/estilos_adicionar.css',
           error: 'Erro ao adicionar fornecedor. Por favor, tente novamente.'
       });
   }
@@ -81,7 +81,7 @@ const editarFornecedor = async (req, res) => {
     }
     res.render('fornecedores/edit', { 
       title: 'Editar Fornecedor',
-      style: 'estilos_editar.css',
+      style: 'fornecedor/estilos_editar.css',
       fornecedor 
     });
   } catch (error) {
@@ -102,7 +102,7 @@ const atualizarFornecedor = async (req, res) => {
     console.error('Erro ao atualizar fornecedor:', error);
     res.status(400).render('fornecedores/edit', {
       title: 'Editar Fornecedor',
-      style: 'estilos_editar.css',
+      style: 'fornecedor/estilos_editar.css',
       fornecedor: req.body,
       error: 'Erro ao atualizar fornecedor. Por favor, tente novamente.'
     });
@@ -138,7 +138,7 @@ const gerarPDF = async (req, res) => {
       }
       res.render('fornecedores/gegarPDF', {
         title: 'Visualizar Fornecedor',
-        style: 'estilo_pdf.css',
+        style: 'fornecedor/estilo_pdf.css',
         fornecedor
       });
     } catch (error) {
