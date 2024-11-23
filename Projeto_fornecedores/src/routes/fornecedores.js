@@ -4,7 +4,7 @@ const Fornecedor = require('../Models/fornecedor');
 const mongoose = require('mongoose')
 
 // Listar fornecedores
-router.get('/', async (req, res) => {
+router.get('/fornecedores/index', async (req, res) => {
   try {
     const fornecedores = await Fornecedor.find();
     res.render('fornecedores/index', {

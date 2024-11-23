@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Fornecedores e Clientes</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestão de Fornecedores e Clientes</h1>
+    </header>
+
+    <main>
+        <!-- Seção para exibir fornecedores -->
+        <section>
+            <h2>Fornecedores</h2>
+            <!-- Botão para navegar para a rota de fornecedores -->
+            <button type="button" id="Fornecedor">Fornecedor</button>
+        </section>
+
+        <!-- Seção para exibir clientes -->
+        <section>
+            <h3>Clientes</h3>
+            <!-- Botão para navegar para a rota de clientes -->
+            <button type="button" id="Cliente">Cliente</button>
+        </section>
+    </main>
+
+</body>
+
+<script>
+    // Seleciona os botões
+    const Fornecedor = document.querySelector('#Fornecedor');
+    const Cliente = document.querySelector('#Cliente');
+
+    // Adiciona evento de clique no botão "Fornecedor"
+    Fornecedor.addEventListener('click', () => {
+        // Redireciona para a rota de fornecedores
+        window.location.href = "../fornecedores/index.hbs";
+    });
+
+    // Adiciona evento de clique no botão "Cliente"
+    Cliente.addEventListener('click', () => {
+        // Redireciona para a rota de clientes
+        window.location.href = "/clientes/index";
+    });
+</script>
+</html>

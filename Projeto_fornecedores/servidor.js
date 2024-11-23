@@ -8,6 +8,7 @@ const app = express();
 // Conexão com o MongoDB
 const connectDb = require('./App');
 const fornRoutes = require('./src/routes/fornecedores');
+const homerotas = require('./src/routes/home');
 const { title } = require('process');
 
 // Configuração do Handlebars
@@ -20,7 +21,8 @@ app.use(express.static(path.join(__dirname, 'src/assets')));
 
 //essa rota vai para main.hbs (home)
 app.use('/fornecedores', fornRoutes);
-app.get('/', fornRoutes);
+app.use('/home', homerotas);
+app.get('/', homerotas);
 
 // Middleware
 app.set('views', path.join(__dirname, 'src/views'));
