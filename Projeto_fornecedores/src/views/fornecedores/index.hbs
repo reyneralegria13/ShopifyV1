@@ -9,7 +9,7 @@
     <div class="container">
       <h1>Fornecedores</h1>
       <div>
-        <a href="/fornecedores/novo" class="button3">Adicionar Fornecedor
+        <a href="/Home/fornecedores/novo" class="button3">Adicionar Fornecedor
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -36,9 +36,9 @@
         {{#if fornecedores.length}}
           {{#each fornecedores}}
             <li>
-              <a href="/fornecedores/get/{{_id}}" class="button1">Fornecedor(a):    {{nome}}</a>
+              <a href="/Home/fornecedores/get/{{_id}}" class="button1">Fornecedor(a):    {{nome}}</a>
 
-              <a href="/fornecedores/edit/{{_id}} " class="button2"><svg
+              <a href="/Home/fornecedores/edit/{{_id}} " class="button2"><svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -56,7 +56,7 @@
                   />
                 </svg></a>
 
-              <a href="/fornecedores/delete/{{_id}}" class="button2"><svg
+              <a href="/Home/fornecedores/delete/{{_id}}" class="button2"><svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const fornRoutes = require('./fornecedores');
+const fornRoutes = require('../routes/fornecedores');
 
 // Listar fornecedores
-router.get('/', async (req, res) => {
+const Home = async (req, res) => {
   try {
         res.render('fornecedores/home', {
       title: 'Fornecedores',
@@ -14,5 +14,5 @@ router.get('/', async (req, res) => {
     console.error('Erro ao listar fornecedores:', error);
     res.status(500).render('error', { message: 'Erro ao carregar fornecedores' });
   }
-});
-module.exports = router;
+};
+module.exports = {Home};

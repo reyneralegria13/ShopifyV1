@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Adicionar Fornecedor</h1>
-        <form action="/fornecedores" method="POST">
+        <form action="/Home/fornecedores" method="POST">
             <input type="text" name="nome" placeholder="Nome" required>
             <input type="text" name="contato" placeholder="Contato">
             <input type="text" name="endereco" placeholder="Endereço">
@@ -29,7 +29,7 @@
             </div>
             <button type="button" id="adicionarPedido">Adicionar Pedido</button>
             <button type="submit">Salvar</button>
-            <button class="back-button" id="backButton" onclick="window.location.href = '/fornecedores';">Voltar</button>
+            <button class="back-button" id="backButton" onclick="window.location.href = '/Home/fornecedore';">Voltar</button>
         </form>
     </div>
     <script>
