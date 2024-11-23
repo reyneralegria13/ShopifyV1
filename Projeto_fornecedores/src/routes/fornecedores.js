@@ -3,14 +3,29 @@ const router = express.Router();
 const Fornecedor = require('../Models/fornecedor');
 const mongoose = require('mongoose')
 
+
+
+router.get('/', async (req, res) => {
+  try {
+        res.render('fornecedores/home', {
+      title: 'Fornecedores',
+      style: 'estilos_fornecedores.css', 
+          });
+  } catch (error) {
+    console.error('Erro ao listar fornecedores:', error);
+    res.status(500).render('error', { message: 'Erro ao carregar fornecedores' });
+  }
+});
+module.exports = router;
+
 // Listar fornecedores
-router.get('/fornecedores/index', async (req, res) => {
+router.get('/index', async (req, res) => {
   try {
     const fornecedores = await Fornecedor.find();
     res.render('fornecedores/index', {
       title: 'Fornecedores',
       style: 'estilos_fornecedores.css', 
-      fornecedores
+      fornecedoress
     });
   } catch (error) {
     console.error('Erro ao listar fornecedores:', error);

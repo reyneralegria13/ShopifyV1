@@ -16,34 +16,18 @@
         <section>
             <h2>Fornecedores</h2>
             <!-- Botão para navegar para a rota de fornecedores -->
-            <button type="button" id="Fornecedor">Fornecedor</button>
+            <button type="button" id="Fornecedor" onclick="window.location.href = '../fornecedores/index';">Fornecedor</button>
         </section>
 
         <!-- Seção para exibir clientes -->
         <section>
             <h3>Clientes</h3>
             <!-- Botão para navegar para a rota de clientes -->
-            <button type="button" id="Cliente">Cliente</button>
+            <button type="button" id="Cliente"  onclick="window.location.href = '../';">Cliente</button>
         </section>
     </main>
 
 </body>
 
-<script>
-    // Seleciona os botões
-    const Fornecedor = document.querySelector('#Fornecedor');
-    const Cliente = document.querySelector('#Cliente');
 
-    // Adiciona evento de clique no botão "Fornecedor"
-    Fornecedor.addEventListener('click', () => {
-        // Redireciona para a rota de fornecedores
-        window.location.href = "../fornecedores/index.hbs";
-    });
-
-    // Adiciona evento de clique no botão "Cliente"
-    Cliente.addEventListener('click', () => {
-        // Redireciona para a rota de clientes
-        window.location.href = "/clientes/index";
-    });
-</script>
 </html>
