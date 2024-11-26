@@ -17,6 +17,26 @@ const listarclientes = async (req, res) => {
     }
 };
 
+const visualizarCliente = async (req, res) => {
+    try {
+        const loja = await Loja.findOne({_id: req.params.id});
+        if(!loja){
+            return res.status(404).render('error', {message: 'Cliente não encontrado'});
+        }
+
+        res.render('clientes/get', {
+            title: 'Visualizar Cliente',
+            style: 'clientes/estilo_getcliente.css',
+            loja
+        });
+        
+
+    } catch (error) {
+        console.error('Erro ao carregar cliente: ', error);
+        res.status(500).render('error', {message: 'Erro ao carregar cliente'});
+    }
+};
+
 // Função para renderizar a página de criação de loja
 const criarLojaForm = (req, res) => {
     try {
@@ -32,13 +52,13 @@ const criarLojaForm = (req, res) => {
 
 // Função para adicionar uma nova loja ao banco de dados
 const adicionarLoja = async (req, res) => {
-    const { nome, contato, filial, fornecedores } = req.body;
+    const {fornecedores } = req.body;
 
     try {
         const novaLoja = new Loja({
-            nome,
-            contato,
-            filial,
+            nome: req.body.nome,
+            contato: req.body.contato,
+            filial: req.body.filial,
             fornecedores,
         });
 
@@ -127,4 +147,4 @@ const atualizarCliente = async (req, res) => {
 };
 
 // Exporta as funções para serem usadas em rotas ou outros arquivos
-module.exports = { listarclientes, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente };
+module.exports = { listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente };

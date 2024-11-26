@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizar Cliente</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Visualizar Cliente</h1>
+
+    <!-- Informações do Cliente -->
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <span id="nome">{{loja.nome}}</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="contato">Contato</label>
+      <span id="contato">{{loja.contato}}</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="filial">Filial</label>
+      <span id="filial">{{loja.filial}}</span>
+    </div>
+
+    <!-- Seção de Pedidos -->
+    <div id="pedidos-section">
+      <h2>Pedidos</h2>
+      <div id="pedidos">
+        {{#if cliente.pedidos.length}}
+          {{#each cliente.pedidos}}
+            <div class="pedido">
+              <label for="item-{{@index}}">Item</label>
+              <span id="item-{{@index}}">{{this.item}}</span>
+
+              <label for="quantidade-{{@index}}">Quantidade</label>
+              <span id="quantidade-{{@index}}">{{this.quantidade}}</span>
+            </div>
+          {{/each}}
+        {{else}}
+          <p>Este cliente não possui pedidos cadastrados.</p>
+        {{/if}}
+      </div>
+    </div>
+
+    <!-- Botões -->
+    <button class="gerar-pdf" onclick="window.location.href = '/Home/clientes/pdf/{{cliente._id}}';">Visualizar PDF</button>
+    <button class="back-button" onclick="window.location.href = '/Home/clientes';">Voltar</button>
+  </div>
+</body>
+</html>

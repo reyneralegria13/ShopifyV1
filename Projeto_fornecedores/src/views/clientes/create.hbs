@@ -8,17 +8,11 @@
 <body>
     <h1>Cadastro de Cliente</h1>
     <form action="/Home/clientes" method="POST">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br><br>
-
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="telefone">Telefone:</label><br>
-        <input type="text" id="telefone" name="telefone"><br><br>
-
-        <label for="endereco">Endereço:</label><br>
-        <input type="text" id="endereco" name="endereco"><br><br>
+        <input type="text" name="nome" placeholder="Nome" required>
+            <input type="text" name="contato" placeholder="Contato">
+            <input type="text" name="filial" placeholder="Endereço">
+        
+        
 
         <button type="submit">Cadastrar</button>
     </form>
