@@ -1,18 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const fornRoutes = require('../routes/fornecedores');
-
-// Listar fornecedores
 const Home = async (req, res) => {
   try {
-        res.render('Inicio/home', {
-      title: 'Fornecedores',
-      style: 'inicial/estilos_home.css', 
-          });
+    // Renderiza a página inicial com os dados necessários
+    res.render('Inicio/home', {
+      title: 'Gestão de Fornecedores e Clientes',
+      style: 'inicial/estilos_home.css', // Adicione o estilo específico da página inicial
+    });
   } catch (error) {
-    console.error('Erro ao listar fornecedores:', error);
-    res.status(500).render('error', { message: 'Erro ao carregar fornecedores' });
+    console.error('Erro ao carregar a página inicial:', error);
+    res.status(500).render('error', { message: 'Erro ao carregar a página inicial' });
   }
 };
-module.exports = {Home};
+
+// Exporta a função para ser usada em outras partes do código
+module.exports = { Home };

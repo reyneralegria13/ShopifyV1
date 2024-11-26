@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clientes</title>
+    <link rel="stylesheet" href="/styles/estilos_clientes.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Clientes</h1>
+      <div>
+        <!-- Botão para adicionar um novo cliente -->
+        <a href="/Home/clientes/novo" class="button3">Adicionar Cliente
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-person-add"
+            viewBox="0 0 16 16"
+          >
+            <path d="M15 8a.5.5 0 0 1-.5.5H13v1.5a.5.5 0 0 1-1 0V8.5h-1.5a.5.5 0 0 1 0-1H12V6a.5.5 0 0 1 1 0v1.5h1.5a.5.5 0 0 1 .5.5z"/>
+            <path d="M6 8c2.21 0 4-1.79 4-4S8.21 0 6 0 2 1.79 2 4s1.79 4 4 4zm3.468-.805C8.525 7.839 7.306 8.5 6 8.5c-1.306 0-2.525-.661-3.468-1.305C1.04 7.866"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Lista de clientes -->
+      <ul>
+        {{#if clientes.length}}
+          {{#each clientes}}
+            <li>
+              <!-- Link para visualizar detalhes do cliente -->
+              <a href="/Home/clientes/get/{{_id}}" class="button1">Cliente: {{nome}}</a>
+
+              <!-- Link para editar o cliente -->
+              <a href="/Home/clientes/edit/{{_id}}" class="button2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  class="bi bi-pencil-square"
+                  viewBox="0 -16"
+                >
+                  <path d="M15...."></path>
+                </svg>
+              </a>
+
+              <!-- Link para excluir o cliente -->
+              <a href="/Home/clientes/delete/{{_id}}" class="button2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  class="bi bi-trash3"
+                  viewBox="0 -16"
+                >
+                  <path d="M6...."></path>
+                </svg>
+              </a>
+            </li>
+          {{/each}}
+        {{else}}
+          <!-- Caso não existam clientes cadastrados -->
+          <div class="no-data">
+            <p>Não existem clientes cadastrados no momento.</p>
+          </div>
+        {{/if}}
+      </ul>
+    </div>
+    <!-- Scripts adicionais, se necessário -->
+    <script src="/scripts/clientes.js"></script>
+  </body>
+</html>
