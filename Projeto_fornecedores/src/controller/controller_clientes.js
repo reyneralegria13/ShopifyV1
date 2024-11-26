@@ -1,7 +1,11 @@
+const express = require('express');
+const Lojas = require('../Models/lojas');
+const mongoose = require('mongoose')
+
 const listarClientes = async (req, res) => {
     try {
       // Renderiza a página de clientes com os dados necessários
-      res.render('Clientes/clientes', {
+      res.render('clientes/index', {
         title: 'Clientes',
         style: 'clientes/estilos_clientes.css', // Adicione o estilo específico da página de clientes, se necessário
       });
