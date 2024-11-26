@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333333;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .no-data {
+    text-align: center;
+    color: #555;
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: #2a7ae4;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .button {
+    background-color: #2a7ae4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 25%;
+  }
+  
+  .button:hover {
+    background-color: #3788f1ea;
+  
+  }
+  
+  .button3 {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px; 
+    background-color: #2a7ae4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .button3 svg {
+    display: inline-block; 
+    vertical-align: middle; 
+    width: 20px; 
+    height: 20px; 
+    fill: currentColor; 
+  }
+  .button3:hover {
+    background-color: #1404f8ce;
+    color: white;
+  
+  }
+  
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #cccccc;
+  }
+  
+  a {
+    color: #2a7ae4;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    
+  }
+  
+  a:hover {
+    color: #1900ff;
+  }
+  
+  .button2{
+    margin-left: 10px ;
+    color: #2a7ae4;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    float: right;
+  }
+  
+  

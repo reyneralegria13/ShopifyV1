@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+</head>
+<body>
+    <h1>Cadastro de Cliente</h1>
+    <form action="/Home/clientes" method="POST">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="telefone">Telefone:</label><br>
+        <input type="text" id="telefone" name="telefone"><br><br>
+
+        <label for="endereco">Endereço:</label><br>
+        <input type="text" id="endereco" name="endereco"><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <!-- Adiciona o script para enviar os dados -->
+    <script>
+        document.getElementById('form-cliente').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const formData = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                endereco: document.getElementById('endereco').value,
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/clientes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message);
+                } else {
+                    const error = await response.json();
+                    alert(`Erro ao cadastrar cliente: ${error.details}`);
+                }
+            } catch (err) {
+                alert(`Erro ao conectar ao servidor: ${err.message}`);
+            }
+        });
+    </script>
+</body>
+</html>

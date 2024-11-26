@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="container">
+        <h1>{{title}}</h1>
+
+        <!-- Exibe uma mensagem de erro, se houver -->
+        {{#if error}}
+            <div class="error-message">
+                <p>{{error}}</p>
+            </div>
+        {{/if}}
+
+        <!-- Formulário de edição -->
+        <form action="/Home/clientes/edits/{{cliente._id}}" method="POST">
+            <!-- Nome -->
+            <label for="nome">Nome:</label><br>
+            <input 
+                type="text" 
+                id="nome" 
+                name="nome" 
+                value="{{cliente.nome}}" 
+                required><br><br>
+
+            <!-- Contato -->
+            <label for="contato">Contato:</label><br>
+            <input 
+                type="text" 
+                id="contato" 
+                name="contato" 
+                value="{{cliente.contato}}"><br><br>
+
+            <!-- Filial -->
+            <label for="filial">Filial:</label><br>
+            <input 
+                type="text" 
+                id="filial" 
+                name="filial" 
+                value="{{cliente.filial}}"><br><br>
+
+            <!-- Fornecedores (campo opcional, pode ser removido ou ajustado conforme a lógica) -->
+            <label for="fornecedores">Fornecedores:</label><br>
+            <input 
+                type="text" 
+                id="fornecedores" 
+                name="fornecedores" 
+                value="{{cliente.fornecedores}}"><br><br>
+
+            <!-- Botões -->
+            <button type="submit">Salvar Alterações</button>
+            <a href="/Home/clientes" class="cancel-button">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
