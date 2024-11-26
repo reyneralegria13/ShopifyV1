@@ -1,0 +1,98 @@
+/* Reset básico */
+body,
+h1,
+h2,
+p,
+div,
+form,
+input,
+button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Container principal */
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+}
+
+/* Cabeçalho */
+.container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2a7ae4;
+  font-size: 2em;
+  border-bottom: 2px solid #f4f4f4;
+  padding-bottom: 10px;
+}
+
+/* Mensagem de erro */
+.error-message {
+  background-color: #ffdddd;
+  border-left: 6px solid #f44336; /* Vermelho */
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.error-message p {
+  color: #d8000c; /* Vermelho escuro */
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column; /* Organiza os campos em coluna */
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+form input[type="text"] {
+  width: calc(100% - 20px); /* Ajusta a largura do campo */
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: solid thin #ddd; /* Borda leve */
+}
+
+form input[type="text"]:focus {
+    outline-color:#2a7ae4 ;
+    }
+
+/* Botões */
+button {
+    background-color: #2a7ae4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #1d5bbf;
+    transform: scale(1.05);
+  }
+  
+  button:disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+  }
+  

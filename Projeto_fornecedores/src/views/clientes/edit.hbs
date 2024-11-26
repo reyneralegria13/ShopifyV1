@@ -19,35 +19,36 @@
         <!-- Formulário de edição -->
         <form action="/Home/clientes/edits/{{cliente._id}}" method="POST">
             <!-- Nome -->
-            <label for="nome">Nome:</label><br>
+            <label for="nome">Nome:</label>
             <input 
                 type="text" 
                 id="nome" 
                 name="nome" 
                 value="{{cliente.nome}}" 
-                required><br><br>
+                required>
 
             <!-- Contato -->
-            <label for="contato">Contato:</label><br>
+            <label for="contato">Contato:</label>
             <input 
                 type="text" 
                 id="contato" 
                 name="contato" 
-                value="{{cliente.contato}}"><br><br>
+                value="{{cliente.contato}}">
 
             <!-- Filial -->
-            <label for="filial">Filial:</label><br>
+            <label for="filial">Filial:</label>
             <input 
                 type="text" 
                 id="filial" 
                 name="filial" 
-                value="{{cliente.filial}}"><br><br>
+                value="{{cliente.filial}}">
 
             
 
             <!-- Botões -->
-            <button type="submit">Salvar Alterações</button>
-            <a href="/Home/clientes" class="cancel-button">Cancelar</a>
+            <button type="submit">Salvar Alterações</button><br>
+            
+            <button class="back-button" id="backButton" onclick="window.location.href = '/Home/clientes';">Voltar</button>
         </form>
     </div>
 </body>
