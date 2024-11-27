@@ -1,6 +1,7 @@
 const express = require('express');
 const Loja = require('../Models/lojas'); // Importa o modelo de Loja
 const mongoose = require('mongoose');
+const Fornecedor = require('../Models/fornecedor');
 
 // Função para listar todas as lojas
 const listarclientes = async (req, res) => {
@@ -146,5 +147,138 @@ const atualizarCliente = async (req, res) => {
     }
 };
 
+const vincularClienteForne = async (req, res) => {
+    try {
+        const { id } = req.params; // ID da Loja
+        const { fornecedorId } = req.body; // ID do Fornecedor
+
+        // Valida os IDs
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "ID da loja inválido." });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(fornecedorId)) {
+            return res.status(400).json({ error: "ID do fornecedor inválido." });
+        }
+
+        console.log('ID da loja:', id);
+        console.log('ID do fornecedor:', fornecedorId);
+
+        // Verifica se a loja existe
+        const loja = await Loja.findById(id);
+        if (!loja) {
+            return res.status(404).json({ error: "Loja não encontrada." });
+        }
+
+        // Verifica se o fornecedor existe
+        const fornecedor = await Fornecedor.findById(fornecedorId);
+        if (!fornecedor) {
+            return res.status(404).json({ error: "Fornecedor não encontrado." });
+        }
+
+        // Atualiza a loja adicionando o fornecedor sem duplicar
+        const lojaAtualizada = await Loja.findOneAndUpdate(
+            { _id: id },
+            { $addToSet: { fornecedores: fornecedorId } },
+            { new: true }
+        ).populate('fornecedores');
+
+        res.status(200).json(lojaAtualizada);
+    } catch (error) {
+        console.error('Erro ao vincular cliente e fornecedor:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+/**const vincularClienteForne = async (req, res) => {
+    try {
+        const { id } = req.params; // ID da Loja
+        const { fornecedorId } = req.body; // ID do Fornecedor
+    
+        await Loja.findByIdAndUpdate(
+          id,
+          { $addToSet: { fornecedores: fornecedorId } }, // Adiciona o fornecedor sem duplicar
+          { new: true }
+        )
+        
+        const loja = await Loja.findOne({_id: id}).populate('fornecedores');
+
+        if (!loja) {
+          return res.status(404).json({ error: "Loja não encontrada" });
+        }
+    
+        res.status(200).json(loja);
+      } catch (error) {
+        res.status(400).json({ error: error.message });
+      }
+};*/
+
+const router = express.Router();
+// Rota para exibir o formulário de criação de pedidos
+const criarPedidoForm = async (req, res) => {
+  try {
+    const clientes = await Cliente.find(); // Busca todos os clientes
+    const fornecedores = await Fornecedor.find(); // Busca todos os fornecedores
+
+    res.render('pedidos/criar', { 
+      title: 'Vincular Pedido',
+      clientes,
+      fornecedores
+    });
+  } catch (error) {
+    console.error('Erro ao carregar formulário de pedidos:', error);
+    res.status(500).render('error', { message: 'Erro ao carregar formulário.' });
+  }
+};
+
+
+
+
+// Rota para processar a criação do pedido
+const criarPedido = async (req, res) => {
+  const { clienteId, fornecedorId, itens } = req.body;
+
+  try {
+    // Verifica se o cliente e o fornecedor existem
+    const cliente = await Cliente.findById(clienteId);
+    const fornecedor = await Fornecedor.findById(fornecedorId);
+
+    if (!cliente || !fornecedor) {
+      return res.status(404).render('error', { message: 'Cliente ou Fornecedor não encontrado.' });
+    }
+
+    // Cria um novo pedido
+    const novoPedido = new Pedido({
+      cliente: cliente._id,
+      fornecedor: fornecedor._id,
+      itens,
+    });
+
+    // Salva o pedido no banco de dados
+    const pedidoSalvo = await novoPedido.save();
+
+    // Atualiza as referências no cliente e no fornecedor
+    cliente.pedidos.push(pedidoSalvo._id);
+    await cliente.save();
+
+    fornecedor.pedidos.push(pedidoSalvo._id);
+    await fornecedor.save();
+
+    // Redireciona ou exibe mensagem de sucesso
+    res.render('pedidos/criar', { 
+      title: 'Vincular Pedido',
+      success: 'Pedido criado com sucesso!',
+      clientes: await Cliente.find(),
+      fornecedores: await Fornecedor.find(),
+    });
+  } catch (error) {
+    console.error('Erro ao criar pedido:', error);
+    res.status(500).render('error', { message: 'Erro ao criar pedido. Tente novamente.' });
+  }
+};
+
+module.exports = router;
+
 // Exporta as funções para serem usadas em rotas ou outros arquivos
-module.exports = { listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente };
+module.exports = { listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente, vincularClienteForne, criarPedidoForm, criarPedido };

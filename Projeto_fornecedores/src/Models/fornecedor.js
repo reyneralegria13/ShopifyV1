@@ -6,9 +6,9 @@ const FornecedorSchema = new mongoose.Schema({
     contato: { type: String  },
     endereco: { type: String },
     pedidos: [PedidoSchema],
-    //clientes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Loja'}],
+    clientes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Loja'}],
 });
 
-
-module.exports = mongoose.model('Fornecedor', FornecedorSchema)
-
+const fornecedor = mongoose.model('Fornecedor', FornecedorSchema)
+ 
+module.exports = fornecedor; 

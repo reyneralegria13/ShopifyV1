@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Fornecedor = require('../Models/fornecedor');
 const mongoose = require('mongoose')
 
 const{ listarFornecedores, visualizarFornecedor, criarFornecedor, adicionarFornecedor, editarFornecedor,
-  atualizarFornecedor, deletarFornecedor, gerarPDF } = require('../controller/controller_fornecedor'); 
+  atualizarFornecedor, deletarFornecedor, gerarPDF, vincularFornecedorCliente } = require('../controller/controller_fornecedor'); 
 
-const {listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente} = require('../controller/controller_clientes');
+const {listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente, vincularClienteForne, criarPedidoForm, criarPedido} = require('../controller/controller_clientes');
 
 const { Home } = require('../controller/controller_inicial');
 // tela inicial
@@ -20,7 +19,7 @@ router.get('/Home/fornecedores/edit/:id', editarFornecedor);// Formulário de ed
 router.post('/Home/fornecedores/edits/:id', atualizarFornecedor); // Atualizar fornecedor
 router.get('/Home/fornecedores/delete/:id', deletarFornecedor); // Deletar fornecedor
 router.get('/Home/fornecedores/pdf/:id', gerarPDF); // Gerar PDF
-
+router.put('/Home/fornecedores/:id', vincularFornecedorCliente);
 
 // Lojas
 
@@ -31,5 +30,5 @@ router.post('/Home/clientes', adicionarLoja);// Adicionar loja
 router.get('/Home/clientes/delete/:id', deletarCliente);// Deletar loja
 router.get('/Home/clientes/edit/:id', editarCliente);// Formulário de edição de loja
 router.post('/Home/clientes/edits/:id', atualizarCliente);// Atualizar loja
-
+router.put('/Home/clientes/:id', vincularClienteForne);// Vincular loja ao fornecedor
 module.exports = router;

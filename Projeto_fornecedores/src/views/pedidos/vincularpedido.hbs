@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vincular Pedido</title>
+  <link rel="stylesheet" href="/styles/pedidos.css"> <!-- Adicione seu CSS aqui -->
+</head>
+<body>
+  <div class="container">
+    <h1>Vincular Pedido</h1>
+
+    <!-- Exibe uma mensagem de erro ou sucesso -->
+    {{#if error}}
+      <div class="error-message">{{error}}</div>
+    {{/if}}
+    {{#if success}}
+      <div class="success-message">{{success}}</div>
+    {{/if}}
+
+    <!-- Formulário para criar o pedido -->
+    <form action="/pedidos/criar" method="POST">
+      <!-- Selecionar Cliente -->
+      <label for="cliente">Cliente:</label>
+      <select id="cliente" name="clienteId" required>
+        {{#each clientes}}
+          <option value="{{this._id}}">{{this.nome}}</option>
+        {{/each}}
+      </select><br><br>
+
+      <!-- Selecionar Fornecedor -->
+      <label for="fornecedor">Fornecedor:</label>
+      <select id="fornecedor" name="fornecedorId" required>
+        {{#each fornecedores}}
+          <option value="{{this._id}}">{{this.nome}}</option>
+        {{/each}}
+      </select><br><br>
+
+      <!-- Adicionar Itens do Pedido -->
+      <div id="itens-container">
+        <h3>Itens do Pedido</h3>
+        <div class="item">
+          <label for="produto">Produto:</label>
+          <input type="text" name="itens[0][produto]" required>
+
+          <label for="quantidade">Quantidade:</label>
+          <input type="number" name="itens[0][quantidade]" required min="1">
+        </div>
+      </div>
+
+      <!-- Botão para adicionar mais itens -->
+      <button type="button" id="add-item">Adicionar Item</button><br><br>
+
+      <!-- Botões de ação -->
+      <button type="submit">Salvar Pedido</button>
+      <a href="/Home/clientes" class="cancel-button">Cancelar</a>
+    </form>
+  </div>
+
+  <!-- Script para adicionar itens dinamicamente -->
+  <script>
+    let itemIndex = 1;
+    document.getElementById('add-item').addEventListener('click', () => {
+      const container = document.getElementById('itens-container');
+      const newItem = document.createElement('div');
+      newItem.classList.add('item');
+      newItem.innerHTML = `
+        <label for="produto">Produto:</label>
+        <input type="text" name="itens[${itemIndex}][produto]" required>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" name="itens[${itemIndex}][quantidade]" required min="1">
+      `;
+      container.appendChild(newItem);
+      itemIndex++;
+    });
+  </script>
+</body>
+</html>

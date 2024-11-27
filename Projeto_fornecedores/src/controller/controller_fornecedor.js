@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Loja = require('../Models/lojas');
 const Fornecedor = require('../Models/fornecedor');
 const mongoose = require('mongoose')
 
@@ -147,6 +148,49 @@ const gerarPDF = async (req, res) => {
     }
   };
 
+  const vincularFornecedorCliente = async (req, res) => {
+    try {
+        const { id } = req.params; // ID do Fornecedor
+        const { clienteId } = req.body; // ID da Loja
+
+        // Valida os IDs
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "ID do fornecedor inválido." });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(clienteId)) {
+            return res.status(400).json({ error: "ID da loja inválido." });
+        }
+
+        console.log('ID do fornecedor:', id);
+        console.log('ID da loja:', clienteId);
+
+        // Verifica se o fornecedor existe
+        const fornecedor = await Fornecedor.findById(id);
+        if (!fornecedor) {
+            return res.status(404).json({ error: "Fornecedor não encontrado." });
+        }
+
+        // Verifica se a loja existe
+        const loja = await Loja.findById(clienteId);
+        if (!loja) {
+            return res.status(404).json({ error: "Loja não encontrada." });
+        }
+
+        // Atualiza o fornecedor adicionando a loja sem duplicar
+        const fornecedorAtualizado = await Fornecedor.findOneAndUpdate(
+            { _id: id },
+            { $addToSet: { clientes: clienteId } }, // Adiciona sem duplicar
+            { new: true } // Retorna o documento atualizado
+        ).populate('clientes'); // Popula as lojas
+
+        res.status(200).json(fornecedorAtualizado);
+    } catch (error) {
+        console.error('Erro ao vincular fornecedor e cliente:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = { 
     listarFornecedores,
     visualizarFornecedor, 
@@ -155,4 +199,5 @@ module.exports = {
     editarFornecedor, 
     atualizarFornecedor, 
     deletarFornecedor, 
-    gerarPDF };    
+    gerarPDF, 
+    vincularFornecedorCliente};    
