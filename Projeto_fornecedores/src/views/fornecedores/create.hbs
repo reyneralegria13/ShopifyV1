@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Fornecedor</title>
-    
+
 </head>
+
 <body>
     <div class="container">
         <h1>Adicionar Fornecedor</h1>
@@ -13,36 +15,45 @@
             <input type="text" name="nome" placeholder="Nome" required>
             <input type="text" name="contato" placeholder="Contato">
             <input type="text" name="endereco" placeholder="Endereço">
-            
-                     
+
+
             <div id="pedidos">
                 <h2>Pedidos</h2>
                 <div class="pedido">
-                    <input type="text" name="pedidos[0][item]" placeholder="Item (ex: coxa de frango)">
+                    <select name="pedidos[0][item]">
+                    {{#if produtos.length}}
+                        {{#each produtos}}
+                            <option value="{{_id}}">{{nome}}</option>
+                        {{/each}}
+                    {{else}}
+                        <option value="">Nenhum item encontrado</option>
+                    {{/if}}
+                </select>
                     <div class="quantidade-container">
                         <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
-                        <input type="number" name="pedidos[0][quantidade]" value="0"  class="quantidade-input">
-                        <button type="button" class="btn-quantidade" onclick= 'aumentarQuantidade(this)'>+</button>
+                        <input type="number" name="pedidos[0][quantidade]" value="0" class="quantidade-input">
+                        <button type="button" class="btn-quantidade" onclick='aumentarQuantidade(this)'>+</button>
                     </div>
-                    
+
                 </div>
             </div>
             <button type="button" id="adicionarPedido">Adicionar Pedido</button>
             <button type="submit">Salvar</button>
-            <button class="back-button" id="backButton" onclick="window.location.href = '/Home/fornecedore';">Voltar</button>
+            <button class="back-button" id="backButton"
+                onclick="window.location.href = '/Home/fornecedore';">Voltar</button>
         </form>
     </div>
     <script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-    const pedidosContainer = document.getElementById('pedidos');
-    const adicionarPedidoBtn = document.getElementById('adicionarPedido');
-    let pedidoCount = 1;
 
-    adicionarPedidoBtn.addEventListener('click', function() {
-        const novoPedido = document.createElement('div');
-        novoPedido.className = 'pedido';
-        novoPedido.innerHTML = `
+        document.addEventListener('DOMContentLoaded', function () {
+            const pedidosContainer = document.getElementById('pedidos');
+            const adicionarPedidoBtn = document.getElementById('adicionarPedido');
+            let pedidoCount = 1;
+
+            adicionarPedidoBtn.addEventListener('click', function () {
+                const novoPedido = document.createElement('div');
+                novoPedido.className = 'pedido';
+                novoPedido.innerHTML = `
             <input type="text" name="pedidos[${pedidoCount}][item]" placeholder="Item (ex: coxa de frango)">
             <div class="quantidade-container">
                 <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
@@ -51,27 +62,28 @@
             </div>
              <button type="button" class="btn-remover" onclick="removerPedido(this)">Remover</button>
         `;
-        pedidosContainer.appendChild(novoPedido);
-        pedidoCount++;
-    });
-});
+                pedidosContainer.appendChild(novoPedido);
+                pedidoCount++;
+            });
+        });
 
-function aumentarQuantidade(btn) {
-    const input = btn.previousElementSibling;
-    input.value = parseInt(input.value) + 1;
-}
+        function aumentarQuantidade(btn) {
+            const input = btn.previousElementSibling;
+            input.value = parseInt(input.value) + 1;
+        }
 
-function diminuirQuantidade(btn) {
-    const input = btn.nextElementSibling;
-    if (parseInt(input.value) > 0) {
-        input.value = parseInt(input.value) - 1;
-    }
-}
+        function diminuirQuantidade(btn) {
+            const input = btn.nextElementSibling;
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
 
- function removerPedido(button) {
-      const pedidoDiv = button.parentElement;
-      pedidoDiv.remove();
-    }
+        function removerPedido(button) {
+            const pedidoDiv = button.parentElement;
+            pedidoDiv.remove();
+        }
     </script>
 </body>
+
 </html>

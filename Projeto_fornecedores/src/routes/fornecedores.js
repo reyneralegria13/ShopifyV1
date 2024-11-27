@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const{ listarFornecedores, visualizarFornecedor, criarFornecedor, adicionarFornecedor, editarFornecedor,
   atualizarFornecedor, deletarFornecedor, gerarPDF, vincularFornecedorCliente } = require('../controller/controller_fornecedor'); 
 
-const {listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente, vincularClienteForne, criarPedidoForm, criarPedido} = require('../controller/controller_clientes');
+const {listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente, vincularClienteForne, criarPedidoForm, criarPedido, vincularFornecedor} = require('../controller/controller_clientes');
 
 const { Home } = require('../controller/controller_inicial');
 // tela inicial
@@ -30,5 +30,6 @@ router.post('/Home/clientes', adicionarLoja);// Adicionar loja
 router.get('/Home/clientes/delete/:id', deletarCliente);// Deletar loja
 router.get('/Home/clientes/edit/:id', editarCliente);// Formulário de edição de loja
 router.post('/Home/clientes/edits/:id', atualizarCliente);// Atualizar loja
-router.put('/Home/clientes/:id', vincularClienteForne);// Vincular loja ao fornecedor
+router.get('/Home/clientes/vincula/:id', vincularFornecedor);// formulario de vincular fornecedor a loja
+router.post('/Home/clientes/vincular/:id', vincularClienteForne);// Vincular loja ao fornecedor
 module.exports = router;

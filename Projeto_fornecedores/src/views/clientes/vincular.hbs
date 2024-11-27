@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{title}}</h1>
+
+        <!-- Exibe uma mensagem de erro, se houver -->
+        {{#if error}}
+        <div class="error-message">
+            <p>{{error}}</p>
+        </div>
+        {{/if}}
+
+        <!-- Formulário de edição -->
+        <form action="/Home/clientes/vincular/{{cliente._id}}" method="POST">
+
+            <!--Fornecedores-->
+            <label for="fornecedorId">Fornecedores:</label>
+            <select id="fornecedorId" name="fornecedorId" multiple required>
+                {{#if fornecedores.length}}
+                {{#each fornecedores}}
+
+                <option value="{{_id}}">{{nome}}</option>
+                {{/each}}
+                {{else}}
+                <option disabled>Nenhum fornecedor disponível</option>
+                {{/if}}
+            </select>
+
+
+
+            <!-- Botões -->
+            <button type="submit">Salvar Alterações</button><br>
+
+            <button class="back-button" id="backButton"
+                onclick="window.location.href = '/Home/clientes';">Voltar</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    document.getElementById('fornecedorId').addEventListener('change', function (event) {
+        const selecionados = Array.from(event.target.selectedOptions).map(option => { option.value });
+        console.log(selecionados); // Exibe os IDs dos fornecedores selecionados
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#fornecedorId').select2({
+            placeholder: "Selecione os fornecedores",
+            width: '100%'
+        });
+    });
+</script>
+</html>

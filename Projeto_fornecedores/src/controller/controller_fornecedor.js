@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Loja = require('../Models/lojas');
 const Fornecedor = require('../Models/fornecedor');
+const Produto = require('../Models/produtos');
 const mongoose = require('mongoose')
-
-
 
 // Listar fornecedores
 const listarFornecedores = async (req, res) => {
@@ -44,14 +43,20 @@ const visualizarFornecedor = async (req, res) => {
 
 // Formulário de criação
 const criarFornecedor = (req, res) => {
+  const produtos = Produto.find();
+  if(!produtos) {
+    return res.status(404).render('error', { message: 'Produtos nao encontrados' });
+  }
   res.render('fornecedores/create', {
     title: 'Adicionar Fornecedor',
-    style: 'fornecedor/estilos_adicionar.css'
+    style: 'fornecedor/estilos_adicionar.css',
+    produtos
   });
 };
 
 // Adicionar fornecedor
 const adicionarFornecedor = async (req, res) => {
+  const produtos = Produto.find();
   try {
       const fornecedorData = {
           nome: req.body.nome,
@@ -59,8 +64,14 @@ const adicionarFornecedor = async (req, res) => {
           endereco: req.body.endereco,
           dataEntregaInicio: req.body.dataEntregaInicio,
           dataEntregaFim: req.body.dataEntregaFim,
+          produtos: req.body.produtos,
           pedidos: Array.isArray(req.body.pedidos) ? req.body.pedidos : [req.body.pedidos]
       };
+      produtos.forEach(async (produto) => {
+        if (fornecedorData.produtos.includes(produto._id)) {
+          fornecedorData.produtos.push(produto._id);
+        }
+      })
       await Fornecedor.create(fornecedorData);
       res.redirect('/Home/fornecedore');
   } catch (error) {
