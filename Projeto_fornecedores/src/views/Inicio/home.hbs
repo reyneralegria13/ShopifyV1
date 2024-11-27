@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Fornecedores e Clientes</title>
-    <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forcenedores</title>
 </head>
 <body>
-    <header>
-        <h1>Gestão de Fornecedores e Clientes</h1>
-    </header>
-
+  <header>
+    <h1>Gestão de Fornecedores e Clientes</h1>
+  </header>
+  <div class="container">
     <main>
-        <!-- Seção para exibir fornecedores -->
-        <section>
-            <h2>Fornecedores</h2>
-            <!-- Botão para navegar para a rota de fornecedores -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Bem vindo!</h1>
+          <p>Texto aleatorio</p>
+          <h2>Escolha uma opção:</h2>
+          <div class="button-group">
             <button type="button" id="Fornecedor" onclick="window.location.href = './Home/fornecedore';">Fornecedor</button>
-        </section>
-
-        <!-- Seção para exibir clientes -->
-        <section>
-            <h3>Clientes</h3>
-            <!-- Botão para navegar para a rota de clientes -->
-            <button type="button" id="Cliente"  onclick="window.location.href = './Home/clientes';">Cliente</button>
-        </section>
+            <button type="button" id="Cliente" onclick="window.location.href = './Home/clientes';">Cliente</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="../../imagens/track.png" alt="Delivery Truck">
+        </div>
+      </section>
     </main>
-
+  </div>
 </body>
-
 
 </html>
