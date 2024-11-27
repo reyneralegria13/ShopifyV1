@@ -18,7 +18,7 @@ app.use(fornRoutes)
 // Teoricamente essas partes são para facilitar a estilização style
 //app.use(express.static('assets'));
 app.use(express.static(path.join(__dirname, 'src/assets')));
-
+app.use('/imagens', express.static(path.join(__dirname, 'src/imagens')));
 //essa rota vai para main.hbs (home)
 
 app.get('/', fornRoutes);

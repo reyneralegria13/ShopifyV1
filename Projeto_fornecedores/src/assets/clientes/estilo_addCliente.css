@@ -1,151 +1,61 @@
+/* Estilos globais */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333333;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    color: #2a7ae4;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  input[type="text"],
-  input[type="tel"],
-  input[type="date"],
-  select {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 3px;
-    background-color: #f9f9f9;
-    color: #333333;
-  }
-  
-  input:focus {
-    outline: none;
-    border-color: #2a7ae4;
-  }
-  
-  button {
-    background-color: #2a7ae4;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-  }
-  
-  button:hover {
-    background-color: #1d5bbf;
-  }
-  
-  .pedido {
-    background-color: #f9f9f9;
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 3px;
-    border: 1px solid #cccccc;
-  }
-  
-  .quantidade-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-    background-color: #ffffff;
-    padding: 8px;
-    border-radius: 3px;
-    width: fit-content;
-    border: 1px solid #cccccc;
-  }
-  
-  .btn-quantidade {
-    background-color: #2a7ae4;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    margin: 0;
-  }
-  
-  .btn-quantidade:hover {
-    background-color: #1d5bbf;
-  }
-  
-  .quantidade-input {
-    width: 50px;
-    text-align: center;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    color: #333333;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 16px;
-  }
-  
-  #adicionarPedido {
-    background-color: #ffffff;
-    color: #2a7ae4;
-    border: 1px solid #2a7ae4;
-    margin: 20px 0;
-    width: 100%;
-  }
-  
-  #adicionarPedido:hover {
-    background-color: #2a7ae4;
-    color: white;
-  }
-  
-  label {
-    color: #333333;
-    margin-bottom: 5px;
-    display: block;
-  }
-  
-  input[type="date"] {
-    background-color: #ffffff;
-    color: #333333;
-    border: 1px solid #cccccc;
-    border-radius: 3px;
-    padding: 10px;
-    margin-bottom: 15px;
-    width: calc(100% - 20px);
-  }
-  
-  /* Estilo para o calendário em navegadores webkit */
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: none;
-    cursor: pointer;
-  }
-  
-  #pedidos h2 {
-    color: #2a7ae4;
-    margin-top: 20px;
-    margin-bottom: 15px;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333333;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Container principal */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título */
+h1 {
+  color: #2a7ae4;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Campos de entrada */
+input[type="text"] {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+  color: #333333;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2a7ae4;
+  background-color: #ffffff;
+}
+
+/* Botão */
+button {
+  background-color: #2a7ae4;
+  color: white;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #1d5bbf;
+}
