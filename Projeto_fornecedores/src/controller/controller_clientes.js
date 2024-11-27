@@ -105,7 +105,7 @@ const editarCliente = async (req, res) => {
         // Renderiza a página de edição com os dados do cliente
         res.render('clientes/edit', {
             title: 'Editar Cliente',
-            style: 'clientes/estilos_editar.css', // Estilo específico da página de edição
+            style: 'clientes/estilo_editcliente.css', // Estilo específico da página de edição
             cliente,
         });
     } catch (error) {
