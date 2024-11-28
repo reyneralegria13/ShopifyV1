@@ -161,7 +161,7 @@ const vincularFornecedor = async (req, res) => {
             return res.status(404).json('error', { message: 'Cliente não encontrado.' });
         }
         const fornecedores = await Fornecedor.find();
-        
+        console.log(fornecedores)
         // Renderiza a página de edição com os dados do cliente
         res.render('clientes/vincular', {
             title: 'Contratar fornecedor',

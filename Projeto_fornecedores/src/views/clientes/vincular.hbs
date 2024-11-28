@@ -28,8 +28,7 @@
             <select id="fornecedorId" name="fornecedorId" multiple required>
                 {{#if fornecedores.length}}
                 {{#each fornecedores}}
-
-                <option value="{{_id}}">{{nome}}</option>
+                    <option value="{{_id}}">{{nome}}</option>
                 {{/each}}
                 {{else}}
                 <option disabled>Nenhum fornecedor disponível</option>

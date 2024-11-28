@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const Loja = require('../Models/lojas');
 const Fornecedor = require('../Models/fornecedor');
 const Produto = require('../Models/produtos');
@@ -23,10 +22,21 @@ const listarFornecedores = async (req, res) => {
 // Visualizar fornecedor (detalhes em modo leitura)
 const visualizarFornecedor = async (req, res) => {
   try {
-    const fornecedor = await Fornecedor.findOne({ _id: req.params.id });
+    // Use populate para carregar os dados relacionados
+    const produtos = await Produto.find();
+    console.log(produtos)
+    const fornecedor = await Fornecedor.findOne({ _id: req.params.id })
+      .populate({
+        path: 'pedidos.item', // Popula o campo item dentro de pedidos
+        model: 'Produto' // Certifique-se de que Produto está registrado no Mongoose
+      });
+
+    console.log(fornecedor);
+
     if (!fornecedor) {
       return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
     }
+
     res.render('fornecedores/get', {
       title: 'Visualizar Fornecedor',
       style: 'fornecedor/estilos_get.css',
@@ -34,48 +44,55 @@ const visualizarFornecedor = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao carregar fornecedor:', error);
-    res.status(500).render('error', { message: 'Erro ao carregar fornecedor' });
+    res.status(500).json({ message: 'Erro ao carregar fornecedor' });
   }
 };
-
 
 
 
 // Formulário de criação
-const criarFornecedor = (req, res) => {
-  const produtos = Produto.find();
+const criarFornecedor = async (req, res) => {
+  const produtos = await Produto.find();
+  
   if(!produtos) {
     return res.status(404).render('error', { message: 'Produtos nao encontrados' });
   }
+
   res.render('fornecedores/create', {
     title: 'Adicionar Fornecedor',
     style: 'fornecedor/estilos_adicionar.css',
-    produtos
+    produtos: produtos
   });
+
+  console.log(produtos)
+
 };
 
 // Adicionar fornecedor
 const adicionarFornecedor = async (req, res) => {
-  const produtos = Produto.find();
   try {
+      // Preparando os dados para o fornecedor, incluindo os pedidos corretamente formatados
       const fornecedorData = {
           nome: req.body.nome,
           contato: req.body.contato,
           endereco: req.body.endereco,
           dataEntregaInicio: req.body.dataEntregaInicio,
           dataEntregaFim: req.body.dataEntregaFim,
-          produtos: req.body.produtos,
-          pedidos: Array.isArray(req.body.pedidos) ? req.body.pedidos : [req.body.pedidos]
+          // Aqui, garantimos que o campo 'item' dentro de 'pedidos' é o ObjectId do produto
+          pedidos: req.body.produtos.map(produtoId => ({
+            item: produtoId, // Aqui você deve garantir que está armazenando o ID do produto
+            quantidade: req.body.quantidade // Caso a quantidade seja enviada pelo frontend
+          }))
       };
-      produtos.forEach(async (produto) => {
-        if (fornecedorData.produtos.includes(produto._id)) {
-          fornecedorData.produtos.push(produto._id);
-        }
-      })
+
+      // Criando o fornecedor no banco de dados
       await Fornecedor.create(fornecedorData);
+      
+      // Redirecionando para a página de fornecedores
       res.redirect('/Home/fornecedore');
   } catch (error) {
       console.error('Erro ao adicionar fornecedor:', error);
+      // Caso ocorra um erro, renderize a página de criação com a mensagem de erro
       res.status(400).render('fornecedores/create', {
           title: 'Adicionar Fornecedor',
           style: 'fornecedor/estilos_adicionar.css',
@@ -83,6 +100,8 @@ const adicionarFornecedor = async (req, res) => {
       });
   }
 };
+
+
 
 // Formulário de edição
 const editarFornecedor = async (req, res) => {
