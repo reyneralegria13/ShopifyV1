@@ -5,76 +5,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clientes</title>
-  <!-- Link para o arquivo de estilos externo -->
+  <link rel="stylesheet" href="/styles/style.css" />
 </head>
 
 <body>
-  <div class="container">
-    <h1>Clientes</h1>
-    <div>
-      <!-- Botão para adicionar um novo cliente -->
-      <a href="/Home/clientes/novo" class="button3">
-        Adicionar Cliente
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-add"
-          viewBox="0 0 16 16">
-          <path
-            d="M15 8a.5.5 0 0 1-.5.5H13v1.5a.5.5 0 0 1-1 0V8.5h-1.5a.5.5 0 0 1 0-1H12V6a.5.5 0 0 1 1 0v1.5h1.5a.5.5 0 0 1 .5.5z" />
-          <path d="M6 8c2.21 0 4-1.79 4-4S8.21 0 6 0 2 1.79 2 4s1.79 4 4 4zm3.468-.805C8.525..."></path>
-        </svg>
-      </a>
+  <div class="main-container">
+    <!-- Lado esquerdo com a imagem -->
+    <div class="left-side">
+      <img src="../../imagens/cliente.png" alt="Envelope Icon" />
     </div>
 
-    <!-- Lista de clientes -->
-    <ul>
-      {{#if lojas.length}}
-      {{#each lojas}}
-      <li>
-        <!-- Link para visualizar detalhes do cliente -->
-        <a href="/Home/clientes/get/{{_id}}" class="button1">Cliente: {{nome}}</a>
-
-         <!-- Link para adicionar fornecedor ao cliente -->
-        <a href="/Home/clientes/vincula/{{_id}}" class="button1">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add"
-          viewBox="0 0 16 16">
-          <path
-            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-          <path
-            d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
-        </svg>
+    <!-- Lado direito com conteúdo -->
+    <div class="right-side">
+      <h1>Clientes</h1>
+      <div class="action-buttons">
+        <!-- Botão para adicionar um novo cliente -->
+        <a href="/Home/clientes/novo" class="button3">
+          Adicionar Cliente
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-add"
+              viewBox="0 0 16 16">
+              <path
+                d="M15 8a.5.5 0 0 1-.5.5H13v1.5a.5.5 0 0 1-1 0V8.5h-1.5a.5.5 0 0 1 0-1H12V6a.5.5 0 0 1 1 0v1.5h1.5a.5.5 0 0 1 .5.5z" />
+              <path d="M6 8c2.21 0 4-1.79 4-4S8.21 0 6 0 2 1.79 2 4s1.79 4 4 4zm3.468-.805C8.525..."></path>
+            </svg>
         </a>
-
-        <!-- Link para editar o cliente -->
-        <a href="/Home/clientes/edit/{{_id}}" class="button2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil-square"
-            viewBox="0 0 16 16" text-align="center">
-            <path
-              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-            <path fill-rule="evenodd"
-              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-          </svg>
-        </a>
-
-        <!-- Link para excluir o cliente -->
-        <a href="/Home/clientes/delete/{{_id}}" class="button2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash3"
-            viewBox="0 0 16 16">
-            <path
-              d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-          </svg>
-        </a>
-      </li>
-      {{/each}}
-      {{else}}
-      <!-- Caso não existam clientes cadastrados -->
-      <div class="no-data">
-        <p>Não existem clientes cadastrados no momento.</p>
       </div>
-      {{/if}}
-    </ul>
-  </div>
 
-  <!-- Scripts adicionais, se necessário -->
-  <script src="/scripts/clientes.js"></script>
+      <!-- Lista de clientes -->
+      <ul class="client-list">
+        {{#if lojas.length}}
+        {{#each lojas}}
+        <li>
+          <!-- Botões de ações para cada cliente -->
+          <a href="/Home/clientes/get/{{_id}}" class="button1">Cliente: {{nome}}
+          </a>
+
+          <a href="/Home/clientes/vincula/{{_id}}" class="button1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add"
+              viewBox="0 0 16 16">
+              <path
+                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+              <path
+                d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+            </svg>
+          </a>
+
+          <a href="/Home/clientes/edit/{{_id}}" class="button2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil-square"
+                viewBox="0 0 16 16" text-align="center">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+            </svg>
+          </a>
+
+          <a href="/Home/clientes/delete/{{_id}}" class="button2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash3"
+                viewBox="0 0 16 16">
+                <path
+                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+            </svg>
+          </a>
+        </li>
+        {{/each}}
+        {{else}}
+        <!-- Mensagem caso não existam clientes cadastrados -->
+        <div class="no-data">
+          <p>Não existem clientes cadastrados no momento.</p>
+        </div>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
 </body>
 
 </html>
