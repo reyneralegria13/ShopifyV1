@@ -19,88 +19,8 @@
                 <h2>Pedidos</h2>
                 <div class="pedido">
                     <!-- Select dos produtos -->
-                    <select name="pedidos[${pedidoCount}][produto]" onchange="atualizarPreco()">
+                    <select name="pedidos[0][produto]" onchange="atualizarPrecoTotal()">
                         <option value="" selected disabled>Selecione um produto</option>
-
-                        {{#if produtos.length}}
-                        {{#each produtos}}
-                        <option value="{{_id}}" data-preco="{{preco}}">{{nome}}</option>
-                        {{/each}}
-                        {{else}}
-                        <option value="">Nenhum item encontrado</option>
-                        {{/if}}
-                    </select>
-
-                    <p id="preco-produto">R$: </p>
-
-                    <div class="quantidade-container">
-                        <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
-                        <input type="number" name="pedidos[${pedidoCount}][quantidade]" value="0"
-                            class="quantidade-input">
-                        <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <button type="button" id="adicionarPedido">Adicionar Pedido</button>
-            <button type="submit">Salvar</button>
-            <button class="back-button" id="backButton"
-                onclick="window.location.href = '/Home/fornecedore';">Voltar</button>
-        </form>
-
-        <div>
-            <h3>Total: R$ <span id="total-preco">0</span></h3>
-        </div>
-    </div>
-
-    <script>
-        let totalPreco = 0; // Variável para armazenar o preço total
-
-        // Função para atualizar o preço de um pedido
-        function atualizarPreco() {
-            const selectElement = document.getElementById('produto-select');
-            const precoElemento = document.getElementById('preco-produto');
-
-            // Obter o preço do produto selecionado
-            const preco = selectElement.options[selectElement.selectedIndex].getAttribute('data-preco');
-
-            // Atualizar o preço do produto
-            if (preco) {
-                precoElemento.innerText = `R$: ${preco}`;
-                // Atualizar o preço total
-                atualizarPrecoTotal();
-            } else {
-                precoElemento.innerText = 'R$: ';
-            }
-        }
-
-        // Atualiza o preço total com base na quantidade e preço dos produtos
-        function atualizarPrecoTotal() {
-            const pedidos = document.querySelectorAll('.pedido');
-            totalPreco = 0;
-
-            pedidos.forEach((pedido, index) => {
-                const select = pedido.querySelector('select');
-                const preco = parseFloat(select.options[select.selectedIndex]?.getAttribute('data-preco') || 0);
-                const quantidade = parseInt(pedido.querySelector('.quantidade-input').value) || 0;
-                totalPreco += preco * quantidade;
-            });
-
-            // Exibir o preço total
-            document.getElementById('total-preco').innerText = totalPreco.toFixed(2);
-        }
-
-        // Função para adicionar um novo pedido
-        document.addEventListener('DOMContentLoaded', function () {
-            const pedidosContainer = document.getElementById('pedidos');
-            const adicionarPedidoBtn = document.getElementById('adicionarPedido');
-            let pedidoCount = 1;
-
-            adicionarPedidoBtn.addEventListener('click', function () {
-                const novoPedido = document.createElement('div');
-                novoPedido.className = 'pedido';
-                novoPedido.innerHTML = `
-                    <select name="produtos" onchange="atualizarPreco()">
                         {{#if produtos.length}}
                             {{#each produtos}}
                                 <option value="{{_id}}" data-preco="{{preco}}">{{nome}}</option>
@@ -109,17 +29,50 @@
                             <option value="">Nenhum item encontrado</option>
                         {{/if}}
                     </select>
+
+                    <p class="preco-produto" id="preco-produto-0">R$: 0.00</p>
+
                     <div class="quantidade-container">
                         <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
-                        <input type="number" name="pedidos[${pedidoCount}][quantidade]" value="0" class="quantidade-input">
+                        <input type="number" name="pedidos[0][quantidade]" value="0" class="quantidade-input">
                         <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
                     </div>
-                    <button type="button" class="btn-remover" onclick="removerPedido(this)">Remover</button>
-                `;
-                pedidosContainer.appendChild(novoPedido);
-                pedidoCount++;
+                </div>
+            </div>
+
+            <button type="button" id="adicionarPedido">Adicionar Pedido</button>
+            <button type="submit">Salvar</button>
+            <button class="back-button" id="backButton" onclick="window.location.href = '/Home/fornecedore';">Voltar</button>
+        </form>
+
+        <div>
+            <h3>Total: R$ <span id="total-preco">0.00</span></h3>
+        </div>
+    </div>
+
+    <script>
+        let totalPreco = 0; // Variável para armazenar o preço total
+        let pedidoCount = 1; // Contador para pedidos
+
+        // Função para atualizar o preço de um pedido
+        function atualizarPrecoTotal() {
+            const pedidos = document.querySelectorAll('.pedido');
+            let totalPreco = 0;
+
+            pedidos.forEach(pedido => {
+                const select = pedido.querySelector('select');
+                const preco = parseFloat(select.options[select.selectedIndex]?.getAttribute('data-preco') || 0);
+                const quantidade = parseInt(pedido.querySelector('.quantidade-input').value) || 0;
+                totalPreco += preco * quantidade;
+
+                // Atualiza o preço do produto no pedido
+                const precoProdutoElemento = pedido.querySelector('.preco-produto');
+                precoProdutoElemento.innerText = `R$: ${(preco * quantidade).toFixed(2)}`;
             });
-        });
+
+            // Exibe o preço total
+            document.getElementById('total-preco').innerText = totalPreco.toFixed(2);
+        }
 
         // Função para aumentar a quantidade
         function aumentarQuantidade(btn) {
@@ -143,6 +96,39 @@
             pedidoDiv.remove();
             atualizarPrecoTotal();
         }
+
+        // Função para adicionar um novo pedido ao formulário
+        document.addEventListener('DOMContentLoaded', function () {
+            const adicionarPedidoBtn = document.getElementById('adicionarPedido');
+            const pedidosContainer = document.getElementById('pedidos');
+
+            adicionarPedidoBtn.addEventListener('click', function () {
+                // Cria um novo pedido com IDs únicos
+                const novoPedido = document.createElement('div');
+                novoPedido.className = 'pedido';
+                novoPedido.id = `pedido-${pedidoCount}`;
+                novoPedido.innerHTML = `
+                    <select name="pedidos[${pedidoCount}][produto]" class="produto-select" onchange="atualizarPrecoTotal()">
+                        {{#if produtos.length}}
+                            {{#each produtos}}
+                                <option value="{{_id}}" data-preco="{{preco}}">{{nome}}</option>
+                            {{/each}}
+                        {{else}}
+                            <option value="">Nenhum item encontrado</option>
+                        {{/if}}
+                    </select>
+                    <p class="preco-produto" id="preco-produto-${pedidoCount}">R$: 0.00</p>
+                    <div class="quantidade-container">
+                        <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
+                        <input type="number" name="pedidos[${pedidoCount}][quantidade]" value="0" class="quantidade-input">
+                        <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
+                    </div>
+                    <button type="button" class="btn-remover" onclick="removerPedido(this)">Remover</button>
+                `;
+                pedidosContainer.appendChild(novoPedido);
+                pedidoCount++; // Incrementa o contador para o próximo pedido
+            });
+        });
     </script>
 </body>
 

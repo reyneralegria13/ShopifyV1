@@ -27,29 +27,43 @@
       <span id="filial">{{loja.filial}}</span>
     </div>
 
-    <!-- Seção de Pedidos -->
+    <!-- Seção de Pedidos 
     <div id="pedidos-section">
       <h2>Pedidos</h2>
       <div id="pedidos">
-        {{#if cliente.pedidos.length}}
-        {{#each cliente.pedidos}}
+        {{#each fornecedor.pedidos}}
         <div class="pedido">
-          <label for="item-{{@index}}">Item</label>
-          <span id="item-{{@index}}">{{this.item}}</span>
+          <label for="produto-{{@index}}">Produto</label>
+          <span id="produto-{{@index}}">
+            {{#if this.produto}}
+            {{this.produto.nome}}
+            {{else}}
+            Produto não disponível
+            {{/if}}
+          </span>
+
+          <label for="preco-{{@index}}">Preço</label>
+          <span id="preco-{{@index}}">
+            {{#if this.produto}}
+            R${{this.produto.preco}} 
+            {{else}}
+            Preço não disponível
+            {{/if}}
+          </span>
 
           <label for="quantidade-{{@index}}">Quantidade</label>
-          <span id="quantidade-{{@index}}">{{this.quantidade}}</span>
-
-          <label for="fornecedor-{{@index}}">Fornecedor</label> 
-          <label id="fornecedor-{{@index}}">{{fornecedor.nome}}</label>
+          <span id="quantidade-{{@index}}">
+            {{#if this.quantidade}}
+            {{this.quantidade}} 
+            {{else}}
+            Quantidade não disponível
+            {{/if}}
+          </span>
         </div>
         {{/each}}
-        {{else}}
-        <p>Este cliente não possui pedidos cadastrados.</p>
-        {{/if}}
       </div>
     </div>
-
+-->
     <div id="fornecedores-section">
       <h2>Fornecedores</h2>
       <div id="fornecedores">
@@ -58,6 +72,10 @@
         <div class="fornecedor">
           <label for="fornecedor-{{@index}}">Nome:</label>
           <span id="fornecedor-{{@index}}">{{this.nome}}</span>
+          {{#each fornecedores.pedidos}}
+          <label for="fornecedor-{{@index}}">Pedidos</label>
+          <span>{{this.produto.nome}}</span>
+          {{/each}}
         </div>
         {{/each}}
         {{else}}

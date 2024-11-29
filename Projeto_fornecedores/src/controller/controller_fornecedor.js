@@ -1,8 +1,9 @@
-const express = require('express');
 const Loja = require('../Models/lojas');
 const Fornecedor = require('../Models/fornecedor');
 const Produto = require('../Models/produtos');
-const mongoose = require('mongoose')
+const Pedido = require('../Models/pedidos')
+const mongoose = require('mongoose');
+const json = require('body-parser/lib/types/json');
 
 // Listar fornecedores
 const listarFornecedores = async (req, res) => {
@@ -10,7 +11,7 @@ const listarFornecedores = async (req, res) => {
     const fornecedores = await Fornecedor.find();
     res.render('fornecedores/index', {
       title: 'Fornecedores',
-      style: 'fornecedor/estilos_fornecedores.css', 
+      style: 'fornecedor/estilos_fornecedores.css',
       fornecedores
     });
   } catch (error) {
@@ -22,39 +23,50 @@ const listarFornecedores = async (req, res) => {
 // Visualizar fornecedor (detalhes em modo leitura)
 const visualizarFornecedor = async (req, res) => {
   try {
-    // Use populate para carregar os dados relacionados
-    const produtos = await Produto.find();
-    console.log(produtos)
+    // Localizar fornecedor com pedidos populados
     const fornecedor = await Fornecedor.findOne({ _id: req.params.id })
-      .populate({
-        path: 'pedidos.item', // Popula o campo item dentro de pedidos
-        model: 'Produto' // Certifique-se de que Produto está registrado no Mongoose
-      });
+    .populate({
+      path: 'pedidos', // Popula os pedidos
+      populate: {
+        path: 'produto', // Popula o produto dentro do pedido
+        model: 'Produto',
+      },
+    });
 
-    console.log(fornecedor);
-
+    // Verifica se o fornecedor foi encontrado
     if (!fornecedor) {
       return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
     }
 
+    // Filtrar pedidos com dados válidos
+    const validPedidos = fornecedor.pedidos.map((pedido) => ({
+      produto: pedido.produto ? pedido.produto : null,
+      quantidade: pedido.quantidade || null,
+    }));
+
+    console.log('Fornecedor:', JSON.stringify(fornecedor, null, 2));
+    console.log('Pedidos válidos:', JSON.stringify(validPedidos, null, 2));
+
+    // Renderizar a página com os dados do fornecedor e pedidos filtrados
     res.render('fornecedores/get', {
       title: 'Visualizar Fornecedor',
       style: 'fornecedor/estilos_get.css',
-      fornecedor
+      fornecedor: { ...fornecedor.toObject(), pedidos: validPedidos },
     });
   } catch (error) {
     console.error('Erro ao carregar fornecedor:', error);
-    res.status(500).json({ message: 'Erro ao carregar fornecedor' });
+    res.status(500).render('error', { message: 'Erro ao carregar fornecedor. Por favor, tente novamente mais tarde.' });
   }
 };
+
 
 
 
 // Formulário de criação
 const criarFornecedor = async (req, res) => {
   const produtos = await Produto.find();
-  
-  if(!produtos) {
+
+  if (!produtos) {
     return res.status(404).render('error', { message: 'Produtos nao encontrados' });
   }
 
@@ -64,42 +76,65 @@ const criarFornecedor = async (req, res) => {
     produtos: produtos
   });
 
-  console.log(produtos)
 
 };
 
 // Adicionar fornecedor
 const adicionarFornecedor = async (req, res) => {
   try {
-      // Preparando os dados para o fornecedor, incluindo os pedidos corretamente formatados
-      const fornecedorData = {
-          nome: req.body.nome,
-          contato: req.body.contato,
-          endereco: req.body.endereco,
-          dataEntregaInicio: req.body.dataEntregaInicio,
-          dataEntregaFim: req.body.dataEntregaFim,
-          // Aqui, garantimos que o campo 'item' dentro de 'pedidos' é o ObjectId do produto
-          pedidos: req.body.produtos.map(produtoId => ({
-            item: produtoId, // Aqui você deve garantir que está armazenando o ID do produto
-            quantidade: req.body.quantidade // Caso a quantidade seja enviada pelo frontend
-          }))
-      };
+    const { nome, contato, endereco, pedidos } = req.body;
 
-      // Criando o fornecedor no banco de dados
-      await Fornecedor.create(fornecedorData);
-      
-      // Redirecionando para a página de fornecedores
-      res.redirect('/Home/fornecedore');
+    // Garantir que pedidos seja um array
+    const pedidosArray = Array.isArray(pedidos) ? pedidos : [];
+
+    // Criar pedidos no banco de dados e obter seus IDs
+    const pedidosIds = await Promise.all(
+      pedidosArray.map(async (pedido) => {
+        // Verificar se os dados do pedido estão completos
+        if (!pedido.produto || !pedido.quantidade) {
+          throw new Error('Dados do pedido incompletos');
+        }
+
+        // Criar um novo pedido no banco de dados
+        const novoPedido = new Pedido({
+          produto: pedido.produto, // Usar o campo correto definido no modelo
+          quantidade: parseInt(pedido.quantidade, 10),
+        });
+
+        // Salvar e retornar o ID do pedido
+        const pedidoSalvo = await novoPedido.save();
+        return pedidoSalvo._id;
+      })
+    );
+
+    // Criar o fornecedor com os pedidos associados
+    const novoFornecedor = new Fornecedor({
+      nome,
+      contato,
+      endereco,
+      pedidos: pedidosIds, // Associar os IDs dos pedidos criados
+    });
+
+    // Salvar o fornecedor no banco de dados
+    await novoFornecedor.save();
+
+    // Redirecionar para a página principal dos fornecedores
+    res.redirect('/Home/fornecedore');
   } catch (error) {
-      console.error('Erro ao adicionar fornecedor:', error);
-      // Caso ocorra um erro, renderize a página de criação com a mensagem de erro
-      res.status(400).render('fornecedores/create', {
-          title: 'Adicionar Fornecedor',
-          style: 'fornecedor/estilos_adicionar.css',
-          error: 'Erro ao adicionar fornecedor. Por favor, tente novamente.'
-      });
+    console.error('Erro ao adicionar fornecedor:', error);
+
+    // Renderizar a página de criação com o erro
+    res.status(400).render('fornecedores/create', {
+      title: 'Adicionar Fornecedor',
+      style: 'fornecedor/estilos_adicionar.css',
+      error: error.message || 'Erro ao adicionar fornecedor. Por favor, tente novamente.',
+    });
   }
 };
+
+
+
+
 
 
 
@@ -110,10 +145,10 @@ const editarFornecedor = async (req, res) => {
     if (!fornecedor) {
       return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
     }
-    res.render('fornecedores/edit', { 
+    res.render('fornecedores/edit', {
       title: 'Editar Fornecedor',
       style: 'fornecedor/estilos_editar.css',
-      fornecedor 
+      fornecedor
     });
   } catch (error) {
     console.error('Erro ao carregar fornecedor para edição:', error);
@@ -162,72 +197,73 @@ const deletarFornecedor = async (req, res) => {
 };
 
 const gerarPDF = async (req, res) => {
-    try {
-      const fornecedor = await Fornecedor.findOne({ _id: req.params.id });
-      if (!fornecedor) {
-        return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
-      }
-      res.render('fornecedores/gegarPDF', {
-        title: 'Visualizar Fornecedor',
-        style: 'fornecedor/estilo_pdf.css',
-        fornecedor
-      });
-    } catch (error) {
-      console.error('Erro ao carregar fornecedor:', error);
-      res.status(500).render('error', { message: 'Erro ao carregar fornecedor' });
+  try {
+    const fornecedor = await Fornecedor.findOne({ _id: req.params.id });
+    if (!fornecedor) {
+      return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
     }
-  };
-
-  const vincularFornecedorCliente = async (req, res) => {
-    try {
-        const { id } = req.params; // ID do Fornecedor
-        const { clienteId } = req.body; // ID da Loja
-
-        // Valida os IDs
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ error: "ID do fornecedor inválido." });
-        }
-
-        if (!mongoose.Types.ObjectId.isValid(clienteId)) {
-            return res.status(400).json({ error: "ID da loja inválido." });
-        }
-
-        console.log('ID do fornecedor:', id);
-        console.log('ID da loja:', clienteId);
-
-        // Verifica se o fornecedor existe
-        const fornecedor = await Fornecedor.findById(id);
-        if (!fornecedor) {
-            return res.status(404).json({ error: "Fornecedor não encontrado." });
-        }
-
-        // Verifica se a loja existe
-        const loja = await Loja.findById(clienteId);
-        if (!loja) {
-            return res.status(404).json({ error: "Loja não encontrada." });
-        }
-
-        // Atualiza o fornecedor adicionando a loja sem duplicar
-        const fornecedorAtualizado = await Fornecedor.findOneAndUpdate(
-            { _id: id },
-            { $addToSet: { clientes: clienteId } }, // Adiciona sem duplicar
-            { new: true } // Retorna o documento atualizado
-        ).populate('clientes'); // Popula as lojas
-
-        res.status(200).json(fornecedorAtualizado);
-    } catch (error) {
-        console.error('Erro ao vincular fornecedor e cliente:', error);
-        res.status(500).json({ error: error.message });
-    }
+    res.render('fornecedores/gegarPDF', {
+      title: 'Visualizar Fornecedor',
+      style: 'fornecedor/estilo_pdf.css',
+      fornecedor
+    });
+  } catch (error) {
+    console.error('Erro ao carregar fornecedor:', error);
+    res.status(500).render('error', { message: 'Erro ao carregar fornecedor' });
+  }
 };
 
-module.exports = { 
-    listarFornecedores,
-    visualizarFornecedor, 
-    criarFornecedor, 
-    adicionarFornecedor, 
-    editarFornecedor, 
-    atualizarFornecedor, 
-    deletarFornecedor, 
-    gerarPDF, 
-    vincularFornecedorCliente};    
+const vincularFornecedorCliente = async (req, res) => {
+  try {
+    const { id } = req.params; // ID do Fornecedor
+    const { clienteId } = req.body; // ID da Loja
+
+    // Valida os IDs
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "ID do fornecedor inválido." });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(clienteId)) {
+      return res.status(400).json({ error: "ID da loja inválido." });
+    }
+
+    console.log('ID do fornecedor:', id);
+    console.log('ID da loja:', clienteId);
+
+    // Verifica se o fornecedor existe
+    const fornecedor = await Fornecedor.findById(id);
+    if (!fornecedor) {
+      return res.status(404).json({ error: "Fornecedor não encontrado." });
+    }
+
+    // Verifica se a loja existe
+    const loja = await Loja.findById(clienteId);
+    if (!loja) {
+      return res.status(404).json({ error: "Loja não encontrada." });
+    }
+
+    // Atualiza o fornecedor adicionando a loja sem duplicar
+    const fornecedorAtualizado = await Fornecedor.findOneAndUpdate(
+      { _id: id },
+      { $addToSet: { clientes: clienteId } }, // Adiciona sem duplicar
+      { new: true } // Retorna o documento atualizado
+    ).populate('clientes'); // Popula as lojas
+
+    res.status(200).json(fornecedorAtualizado);
+  } catch (error) {
+    console.error('Erro ao vincular fornecedor e cliente:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  listarFornecedores,
+  visualizarFornecedor,
+  criarFornecedor,
+  adicionarFornecedor,
+  editarFornecedor,
+  atualizarFornecedor,
+  deletarFornecedor,
+  gerarPDF,
+  vincularFornecedorCliente
+};    

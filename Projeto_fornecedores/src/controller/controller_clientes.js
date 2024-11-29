@@ -2,6 +2,8 @@ const express = require('express');
 const Loja = require('../Models/lojas'); // Importa o modelo de Loja
 const mongoose = require('mongoose');
 const Fornecedor = require('../Models/fornecedor');
+const Produto = require('../Models/produtos');
+const Pedido = require('../Models/pedidos')
 
 // Função para listar todas as lojas
 const listarclientes = async (req, res) => {
@@ -21,21 +23,33 @@ const listarclientes = async (req, res) => {
 
 const visualizarCliente = async (req, res) => {
     try {
-        const loja = await Loja.findOne({ _id: req.params.id });
+        const loja = await Loja.findOne({ _id: req.params.id })
+
         if (!loja) {
             return res.status(404).render('error', { message: 'Cliente não encontrado' });
         }
-
-        const fornecedores = await Fornecedor.find({ _id: { $in: loja.fornecedores } });
-        if(!fornecedores) {
+        
+        const fornecedores = await Fornecedor.find({ _id: { $in: loja.fornecedores } }).populate({
+            path: 'pedidos',
+            populate: {
+                path: 'produto',
+                model: 'Produto',
+            },
+        });
+        if (!fornecedores) {
             return res.status(404).render('error', { message: 'Fornecedores nao encontrados' });
         }
+        /**const validPedidos = fornecedores.pedidos.map((pedido) => ({
+            produto: pedido.produto ? pedido.produto : null,
+            quantidade: pedido.quantidade || null,
+        })); */
 
         res.render('clientes/get', {
             title: 'Visualizar Cliente',
             style: 'clientes/estilo_getcliente.css',
             loja,
             fornecedores
+            /**: { ...fornecedores.toObject(), pedidos: validPedidos } */
         });
 
 
@@ -161,7 +175,7 @@ const vincularFornecedor = async (req, res) => {
             return res.status(404).json('error', { message: 'Cliente não encontrado.' });
         }
         const fornecedores = await Fornecedor.find();
-        console.log(fornecedores)
+        console.log('fornecedores: ', fornecedores)
         // Renderiza a página de edição com os dados do cliente
         res.render('clientes/vincular', {
             title: 'Contratar fornecedor',
@@ -208,6 +222,15 @@ const vincularClienteForne = async (req, res) => {
             { new: true }
         ).populate('fornecedores');
 
+        const fornecedorAtualizado = await Fornecedor.findOneAndUpdate(
+            { _id: fornecedorId },
+            { $addToSet: { clientes: id } },
+            { new: true }
+        )
+
+        if (!lojaAtualizada || !fornecedorAtualizado) {
+            return res.status(400).json({ error: 'Erro ao vincular cliente e fornecedor' })
+        }
         res.redirect('/Home/clientes');
     } catch (error) {
         console.error('Erro ao vincular cliente e fornecedor:', error);
@@ -216,28 +239,7 @@ const vincularClienteForne = async (req, res) => {
 };
 
 
-/**const vincularClienteForne = async (req, res) => {
-    try {
-        const { id } = req.params; // ID da Loja
-        const { fornecedorId } = req.body; // ID do Fornecedor
-    
-        await Loja.findByIdAndUpdate(
-          id,
-          { $addToSet: { fornecedores: fornecedorId } }, // Adiciona o fornecedor sem duplicar
-          { new: true }
-        )
-        
-        const loja = await Loja.findOne({_id: id}).populate('fornecedores');
 
-        if (!loja) {
-          return res.status(404).json({ error: "Loja não encontrada" });
-        }
-    
-        res.status(200).json(loja);
-      } catch (error) {
-        res.status(400).json({ error: error.message });
-      }
-};*/
 
 const router = express.Router();
 // Rota para exibir o formulário de criação de pedidos
