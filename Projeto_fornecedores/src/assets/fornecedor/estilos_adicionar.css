@@ -1,150 +1,239 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #333333;
   margin: 0;
+  font-family: Arial, sans-serif;
+  background: #6a60ff url('/images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-side {
+  flex: 2;
+  background: #f8f8f8;
   padding: 20px;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  color: #2a7ae4;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-form {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+.pedido-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 
-input[type="text"],
-input[type="tel"],
-input[type="date"],
-select {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 3px;
-  background-color: #f9f9f9;
-  color: #333333;
-}
-
-input:focus {
-  outline: none;
-  border-color: #2a7ae4;
-}
-
-button {
-  background-color: #2a7ae4;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-}
-
-button:hover {
-  background-color: #1d5bbf;
-}
-
-.pedido {
-  background-color: #f9f9f9;
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 3px;
-  border: 1px solid #cccccc;
+.pedido-info select {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .quantidade-container {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  background-color: #ffffff;
-  padding: 8px;
-  border-radius: 3px;
-  width: fit-content;
-  border: 1px solid #cccccc;
+  gap: 5px;
 }
 
-.btn-quantidade {
+.quantidade-container button {
+  color: #ffffff;
+  padding: 8px 12px;
+  font-size: 14px;
   background-color: #2a7ae4;
-  color: white;
-  width: 30px;
-  height: 30px;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  margin: 0;
+  transition: background-color 0.3s ease;
 }
 
-.btn-quantidade:hover {
-  background-color: #1d5bbf;
+.quantidade-container button:hover {
+  background-color: #034aa6;
 }
 
-.quantidade-input {
+.quantidade-container input {
   width: 50px;
   text-align: center;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  color: #333333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   padding: 5px;
-  border-radius: 3px;
+  font-size: 14px;
+}
+
+.preco-produto {
+  margin-top: 10px;
+  margin-bottom: 0%;
   font-size: 16px;
+  font-weight: bold;
+  text-align: right;
 }
 
-#adicionarPedido {
-  background-color: #ffffff;
-  color: #2a7ae4;
-  border: 1px solid #2a7ae4;
-  margin: 20px 0;
-  width: 100%;
+
+
+.right-side {
+  flex: 1;
+  padding: 30px;
 }
 
-#adicionarPedido:hover {
+h2 {
+  margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.form-group input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #6a60ff;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  margin-top: 20px;
+}
+
+.pedido {
+  background: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.pedido-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.remover-pedido {
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remover-pedido svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+.remover-pedido:hover {
+  background-color: #c0392b;
+}
+
+.quantidade-container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.button-back, .button-submit {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-back {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+  text-decoration: none;
+}
+
+.button-back:hover {
+  background-color: #e1e1e1;
+}
+
+.button-submit {
   background-color: #2a7ae4;
   color: white;
+  border: none;
 }
 
-label {
-  color: #333333;
-  margin-bottom: 5px;
-  display: block;
+.button-submit:hover {
+  background-color: #0454bd;
 }
 
-input[type="date"] {
-  background-color: #ffffff;
-  color: #333333;
-  border: 1px solid #cccccc;
-  border-radius: 3px;
-  padding: 10px;
-  margin-bottom: 15px;
-  width: calc(100% - 20px);
+#pedidos {
+  max-height: 600px; /* Define a altura máxima (ajuste conforme necessário) */
+  overflow-y: auto; /* Ativa a rolagem vertical quando necessário */
+  padding-right: 10px; /* Para evitar que o conteúdo fique escondido atrás do scrollbar */
 }
 
-/* Estilo para o calendário em navegadores webkit */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: none;
-  cursor: pointer;
+/* Opcional: Personalizar o scrollbar */
+#pedidos::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
 }
 
-#pedidos h2 {
-  color: #2a7ae4;
-  margin-top: 20px;
-  margin-bottom: 15px;
+#pedidos::-webkit-scrollbar-thumb {
+  background-color: #cccccc; /* Cor da barra de rolagem */
+  border-radius: 4px; /* Arredondamento das bordas */
+}
+
+#pedidos::-webkit-scrollbar-thumb:hover {
+  background-color: #aaaaaa; /* Cor da barra de rolagem ao passar o mouse */
+}
+
+#pedidos::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Cor de fundo do trilho da barra de rolagem */
+}
+
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .left-side {
+    order: 2;
+  }
 }

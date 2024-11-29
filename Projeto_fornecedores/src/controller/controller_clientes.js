@@ -179,7 +179,7 @@ const vincularFornecedor = async (req, res) => {
         // Renderiza a página de edição com os dados do cliente
         res.render('clientes/vincular', {
             title: 'Contratar fornecedor',
-            style: 'clientes/estilo_editcliente.css', // Estilo específico da página de edição
+            style: 'clientes/estilo_vincular.css', // Estilo específico da página de edição
             cliente,
             fornecedores
         });

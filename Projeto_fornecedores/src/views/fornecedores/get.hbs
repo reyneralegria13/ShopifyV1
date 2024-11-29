@@ -1,78 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visualizar Fornecedor</title>
-
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <div class="container">
-    <h1>Visualizar Fornecedor</h1>
-    <!-- Informações do Fornecedor -->
-    <div class="form-group">
-      <label for="nome">Nome</label>
-      <span id="nome">{{fornecedor.nome}}</span>
-    </div>
-
-    <div class="form-group">
-      <label for="contato">Contato</label>
-      <span id="contato">{{fornecedor.contato}}</span>
-    </div>
-
-    <div class="form-group">
-      <label for="endereco">Endereço</label>
-      <span id="endereco">{{fornecedor.endereco}}</span>
-    </div>
-
-    <!-- Pedidos -->
-    <div id="pedidos-section">
+  <div class="main-container">
+    <!-- Lado esquerdo (Pedidos) -->
+    <div class="left-side">
       <h2>Pedidos</h2>
-      <div id="pedidos">
+      <div id="pedidos" class="pedidos-container">
         {{#each fornecedor.pedidos}}
-        <div class="pedido">
-          <label for="produto-{{@index}}">Produto</label>
-          <span id="produto-{{@index}}">
-            {{#if this.produto}}
-            {{this.produto.nome}} <!-- Nome do produto -->
-            {{else}}
-            Produto não disponível
-            {{/if}}
-          </span>
+          <div class="pedido">
+            <div class="pedido-item">
+              <label for="produto-{{@index}}">Produto:</label>
+              <span id="produto-{{@index}}" class="readonly">
+                {{#if this.produto}}
+                  {{this.produto.nome}} <!-- Nome do produto -->
+                {{else}}
+                  Produto não disponível
+                {{/if}}
+              </span>
+            </div>
 
-          <label for="preco-{{@index}}">Preço</label>
-          <span id="preco-{{@index}}">
-            {{#if this.produto}}
-            R${{this.produto.preco}} <!-- Preço do produto -->
-            {{else}}
-            Preço não disponível
-            {{/if}}
-          </span>
+            <div class="pedido-item">
+              <label for="preco-{{@index}}">Preço:</label>
+              <span id="preco-{{@index}}" class="readonly">
+                {{#if this.produto}}
+                  R${{this.produto.preco}} <!-- Preço do produto -->
+                {{else}}
+                  Preço não disponível
+                {{/if}}
+              </span>
+            </div>
 
-          <label for="quantidade-{{@index}}">Quantidade</label>
-          <span id="quantidade-{{@index}}">
-            {{#if this.quantidade}}
-            {{this.quantidade}} <!-- Quantidade do pedido -->
-            {{else}}
-            Quantidade não disponível
-            {{/if}}
-          </span>
-        </div>
+            <div class="pedido-item">
+              <label for="quantidade-{{@index}}">Quantidade:</label>
+              <span id="quantidade-{{@index}}" class="readonly">
+                {{#if this.quantidade}}
+                  {{this.quantidade}} <!-- Quantidade do pedido -->
+                {{else}}
+                  Quantidade não disponível
+                {{/if}}
+              </span>
+            </div>
+          </div>
         {{/each}}
       </div>
     </div>
 
+    <!-- Lado direito (Informações do Fornecedor) -->
+    <div class="right-side">
+      <h1>Visualizar Fornecedor</h1>
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <span id="nome" class="readonly">{{fornecedor.nome}}</span>
+      </div>
 
+      <div class="form-group">
+        <label for="contato">Contato:</label>
+        <span id="contato" class="readonly">{{fornecedor.contato}}</span>
+      </div>
 
+      <div class="form-group">
+        <label for="endereco">Endereço:</label>
+        <span id="endereco" class="readonly">{{fornecedor.endereco}}</span>
+      </div>
 
-
-    <button class="gerar-pdf" id="gerar-pdf"
-      onclick="window.location.href = '/Home/fornecedores/pdf/{{fornecedor._id}}';">Visualizar PDF</button>
-    <button class="back-button" id="backButton" onclick="window.location.href = '/Home/fornecedore';">Voltar</button>
-
+      <div class="form-actions">
+        <a href="/Home/fornecedore" class="button-back">Voltar</a>
+        <a href="/Home/fornecedores/pdf/{{fornecedor._id}}" class="button-submit">Visualizar PDF</a>
+      </div>
+    </div>
   </div>
 </body>
-
 </html>

@@ -6,50 +6,60 @@
     <title>{{title}}</title>
 </head>
 <body>
-    <div class="container">
-        <h1>{{title}}</h1>
+    <div class="main-container">
+        <!-- Lado esquerdo com imagem 
+        <div class="left-side">
+            <img src="/images/cliente.png" alt="Cliente Icon">
+        </div>-->
 
-        <!-- Exibe uma mensagem de erro, se houver -->
-        {{#if error}}
-            <div class="error-message">
-                <p>{{error}}</p>
-            </div>
-        {{/if}}
+        <!-- Lado direito com formulário -->
+        <div class="right-side">
+            <h1>{{title}}</h1>
 
-        <!-- Formulário de edição -->
-        <form action="/Home/clientes/edits/{{cliente._id}}" method="POST">
-            <!-- Nome -->
-            <label for="nome">Nome:</label>
-            <input 
-                type="text" 
-                id="nome" 
-                name="nome" 
-                value="{{cliente.nome}}" 
-                required>
+            <!-- Exibe uma mensagem de erro, se houver -->
+            {{#if error}}
+                <div class="error-message">
+                    <p>{{error}}</p>
+                </div>
+            {{/if}}
 
-            <!-- Contato -->
-            <label for="contato">Contato:</label>
-            <input 
-                type="text" 
-                id="contato" 
-                name="contato" 
-                value="{{cliente.contato}}">
+            <!-- Formulário de edição -->
+            <form action="/Home/clientes/edits/{{cliente._id}}" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input 
+                        type="text" 
+                        id="nome" 
+                        name="nome" 
+                        value="{{cliente.nome}}" 
+                        required>
+                </div>
 
-            <!-- Filial -->
-            <label for="filial">Filial:</label>
-            <input 
-                type="text" 
-                id="filial" 
-                name="filial" 
-                value="{{cliente.filial}}">
+                <div class="form-group">
+                    <label for="contato">Contato:</label>
+                    <input 
+                        type="text" 
+                        id="contato" 
+                        name="contato" 
+                        value="{{cliente.contato}}">
+                </div>
 
-            
+                <div class="form-group">
+                    <label for="filial">Filial:</label>
+                    <input 
+                        type="text" 
+                        id="filial" 
+                        name="filial" 
+                        value="{{cliente.filial}}">
+                </div>
 
-            <!-- Botões -->
-            <button type="submit">Salvar Alterações</button><br>
-            
-            <button class="back-button" id="backButton" onclick="window.location.href = '/Home/clientes';">Voltar</button>
-        </form>
+                <!-- Botões alinhados lado a lado -->
+                <div class="form-actions">
+                    <a href='/Home/clientes'class="button-back">Voltar</a>
+                    <button type="submit" class="button-submit">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

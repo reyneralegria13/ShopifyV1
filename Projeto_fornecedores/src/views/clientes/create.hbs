@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="/styles/style.css" />
 </head>
+
 <body>
-    
-    <form action="/Home/clientes" method="POST">
-    <h1>Cadastro de Cliente</h1>
-        <input type="text" name="nome" placeholder="Nome" required>
-            <input type="text" name="contato" placeholder="Contato">
-            <input type="text" name="filial" placeholder="Endereço">
+    <div class="main-container">
+        <!-- Lado esquerdo com a imagem -->
+        <div class="left-side">
+            <img src="../../imagens/cliente.png" alt="Cliente Icon" />
+        </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+        <!-- Lado direito com o formulário -->
+        <div class="right-side">
+            <h1>Cadastro de Cliente</h1>
+            <form id="form-cliente" action="/Home/clientes" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite o nome" required />
+                </div>
 
-    <!-- Adiciona o script para enviar os dados -->
+                <div class="form-group">
+                    <label for="contato">Contato</label>
+                    <input type="text" id="contato" name="contato" placeholder="Digite o contato" />
+                </div>
+
+                <div class="form-group">
+                    <label for="filial">Endereço</label>
+                    <input type="text" id="filial" name="filial" placeholder="Digite o endereço" />
+                </div>
+
+                <div class="form-actions">
+                    <a href="/Home/clientes" class="button-back">Voltar</a>
+                    <button type="submit" class="button-submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
         document.getElementById('form-cliente').addEventListener('submit', async function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário

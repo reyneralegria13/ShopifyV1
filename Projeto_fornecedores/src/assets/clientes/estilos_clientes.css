@@ -20,6 +20,7 @@ body {
 }
 
 .left-side {
+  position: relative;
   flex: 1;
   background: #f8f8f8;
   display: flex;
@@ -33,7 +34,20 @@ body {
   height: auto;
 }
 
-
+.top-back-button {
+  position: absolute; 
+  top: 10px;         
+  left: 8px;         
+  display: flex;    
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 3px;
+  transition: background-color 0.3s, color 0.3s;
+  z-index: 10; 
+}
 
 
 .right-side {
@@ -67,6 +81,10 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+.client-actions {
+  display: flex;
+  gap: 10px; 
 }
 
 .no-data {
@@ -150,7 +168,7 @@ body {
   }
   
   .button2{
-    margin-left: 10px ;
+    /*margin-left: 10px ;*/
     color: #2a7ae4;
     transition: color 0.3s ease;
     text-decoration: none;
