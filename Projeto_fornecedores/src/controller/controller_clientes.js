@@ -40,10 +40,12 @@ const visualizarCliente = async (req, res) => {
             model: 'Produto',
           },
         });
-  
-      if (!fornecedores || fornecedores.length === 0) {
-        return res.status(404).render('error', { message: 'Fornecedores não encontrados' });
-      }
+        /**
+         if (!fornecedores || fornecedores.length === 0) {
+            return res.status(404).render('error', { message: 'Fornecedores não encontrados' });
+            * 
+        }
+        */
   
       // Filtrar pedidos com dados válidos para cada fornecedor
       const fornecedoresComPedidos = fornecedores.map((fornecedor) => ({

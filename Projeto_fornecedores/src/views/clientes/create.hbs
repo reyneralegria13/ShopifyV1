@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro de Cliente</title>
-    <link rel="stylesheet" href="/styles/style.css" />
 </head>
 
 <body>
@@ -41,19 +40,19 @@
             </form>
         </div>
     </div>
+    <!--
     <script>
         document.getElementById('form-cliente').addEventListener('submit', async function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
             const formData = {
                 nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value,
-                endereco: document.getElementById('endereco').value,
+                contato: document.getElementById('contato').value,
+                endereco: document.getElementById('filial').value,
             };
 
             try {
-                const response = await fetch('http://localhost:3000/clientes', {
+                const response = await fetch('http://localhost:3000/Home/clientes', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData),
@@ -71,5 +70,6 @@
             }
         });
     </script>
+    -->
 </body>
 </html>

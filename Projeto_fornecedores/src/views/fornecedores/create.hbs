@@ -1,122 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Fornecedor</title>
 
 </head>
-<body>
-  <div class="main-container">
-  <!-- Lado esquerdo -->
-  <div class="left-side">
-    <h2>Pedidos</h2>
-    <div id="pedidos">
-      <!-- Pedido inicial -->
-      <div class="pedido">
-        <label for="produto-select-0">Produto</label>
-        <div class="pedido-info">
-          <select id="produto-select-0" name="pedidos[0][produto]" onchange="atualizarPrecoTotal()">
-            <option value="" selected disabled>Selecione um produto</option>
-            {{#if produtos.length}}
-              {{#each produtos}}
-                <option value="{{_id}}" data-preco="{{preco}}">{{nome}}</option>
-              {{/each}}
-            {{else}}
-              <option value="">Nenhum item encontrado</option>
-            {{/if}}
-          </select>
 
-          <div class="quantidade-container">
-            <label>Quantidade:</label>
-            <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
-            <input type="number" name="pedidos[0][quantidade]" value="0" class="quantidade-input">
-            <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
+<body>
+  <form action="/Home/fornecedores" method="POST">
+    <div class="main-container">
+      <!-- Lado esquerdo -->
+      <div class="left-side">
+        <h2>Pedidos</h2>
+        <div id="pedidos">
+          <!-- Pedido inicial -->
+          <div class="pedido">
+            <label for="produto-select-0">Produto</label>
+            <div class="pedido-info">
+              <select id="produto-select-0" name="pedidos[0][produto]" onchange="atualizarPrecoTotal()">
+                <option value="" selected disabled>Selecione um produto</option>
+                {{#if produtos.length}}
+                {{#each produtos}}
+                <option value="{{_id}}" data-preco="{{preco}}">{{nome}}</option>
+                {{/each}}
+                {{else}}
+                <option value="">Nenhum item encontrado</option>
+                {{/if}}
+              </select>
+
+              <div class="quantidade-container">
+                <label>Quantidade:</label>
+                <button type="button" class="btn-quantidade" onclick="diminuirQuantidade(this)">-</button>
+                <input type="number" name="pedidos[0][quantidade]" value="0" class="quantidade-input">
+                <button type="button" class="btn-quantidade" onclick="aumentarQuantidade(this)">+</button>
+              </div>
+            </div>
+            <div class="pedido-footer">
+              <button type="button" class="remover-pedido" onclick="removerPedido(this)">
+                Remover
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                  <path
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                </svg>
+              </button>
+              <p class="preco-produto">Preço: R$ <span id="preco-produto-0">0.00</span></p>
+            </div>
           </div>
         </div>
-        <div class="pedido-footer">
-          <button type="button" class="remover-pedido" onclick="removerPedido(this)">
-            Remover
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-            </svg>
-          </button>
-          <p class="preco-produto">Preço: R$ <span id="preco-produto-0">0.00</span></p>
-        </div>
+        <button type="button" id="adicionarPedido" class="button-submit">
+          Adicionar Pedido
+        </button>
       </div>
-    </div>
-    <button type="button" id="adicionarPedido" class="button-submit">
-        Adicionar Pedido
-    </button>
-  </div>
 
-  <!-- Lado direito -->
-  <div class="right-side">
-    <h1>Formulário de Cliente</h1>
-    <form>
-      <div class="form-group">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" placeholder="Digite o nome">
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Digite o email">
-      </div>
-      <div class="form-group">
-        <label for="telefone">Telefone:</label>
-        <input type="tel" id="telefone" name="telefone" placeholder="Digite o telefone">
-      </div>
-      <div class="form-actions">
-        <a href="/Home/fornecedore" class="button-back">Cancelar</a>
-        <button type="submit" class="button-submit">Enviar</button>
-      </div>
-    </form>
+      <!-- Lado direito -->
+      <div class="right-side">
+        <h1>Formulário de fornecedor</h1>
+
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" placeholder="Digite o nome">
+        </div>
+        <div class="form-group">
+          <label for="email">Contato:</label>
+          <input type="tel" id="contato" name="contato" placeholder="Digite o contato">
+        </div>
+        <div class="form-group">
+          <label for="telefone">Endereço:</label>
+          <input type="text" id="endereco" name="endereco" placeholder="Digite o endereco">
+        </div>
+        <div class="form-actions">
+          <a href="/Home/fornecedore" class="button-back">Cancelar</a>
+          <button type="submit" class="button-submit">Enviar</button>
+        </div>
+  </form>
   </div>
-</div>
+  </div>
 
 
 
   <script>
-let pedidoCount = 1;
+    let pedidoCount = 1;
 
-function atualizarPrecoTotal() {
-  const pedidos = document.querySelectorAll('.pedido');
-  pedidos.forEach((pedido, index) => {
-    const select = pedido.querySelector('select');
-    const preco = parseFloat(select.options[select.selectedIndex]?.getAttribute('data-preco') || 0);
-    const quantidade = parseInt(pedido.querySelector('.quantidade-input').value) || 0;
+    function atualizarPrecoTotal() {
+      const pedidos = document.querySelectorAll('.pedido');
+      pedidos.forEach((pedido, index) => {
+        const select = pedido.querySelector('select');
+        const preco = parseFloat(select.options[select.selectedIndex]?.getAttribute('data-preco') || 0);
+        const quantidade = parseInt(pedido.querySelector('.quantidade-input').value) || 0;
 
-    const precoProdutoElemento = pedido.querySelector('.preco-produto span');
-    precoProdutoElemento.innerText = (preco * quantidade).toFixed(2);
-  });
-}
+        const precoProdutoElemento = pedido.querySelector('.preco-produto span');
+        precoProdutoElemento.innerText = (preco * quantidade).toFixed(2);
+      });
+    }
 
-function aumentarQuantidade(btn) {
-  const input = btn.previousElementSibling;
-  input.value = parseInt(input.value) + 1;
-  atualizarPrecoTotal();
-}
+    function aumentarQuantidade(btn) {
+      const input = btn.previousElementSibling;
+      input.value = parseInt(input.value) + 1;
+      atualizarPrecoTotal();
+    }
 
-function diminuirQuantidade(btn) {
-  const input = btn.nextElementSibling;
-  if (parseInt(input.value) > 0) {
-    input.value = parseInt(input.value) - 1;
-    atualizarPrecoTotal();
-  }
-}
+    function diminuirQuantidade(btn) {
+      const input = btn.nextElementSibling;
+      if (parseInt(input.value) > 0) {
+        input.value = parseInt(input.value) - 1;
+        atualizarPrecoTotal();
+      }
+    }
 
-function removerPedido(btn) {
-  const pedido = btn.closest('.pedido');
-  pedido.remove();
-  atualizarPrecoTotal();
-}
+    function removerPedido(btn) {
+      const pedido = btn.closest('.pedido');
+      pedido.remove();
+      atualizarPrecoTotal();
+    }
 
-document.getElementById('adicionarPedido').addEventListener('click', () => {
-  const pedidosContainer = document.getElementById('pedidos');
-  const novoPedido = document.createElement('div');
-  novoPedido.className = 'pedido';
-  novoPedido.innerHTML = `
+    document.getElementById('adicionarPedido').addEventListener('click', () => {
+      const pedidosContainer = document.getElementById('pedidos');
+      const novoPedido = document.createElement('div');
+      novoPedido.className = 'pedido';
+      novoPedido.innerHTML = `
     <label for="produto-select-${pedidoCount}">Produto</label>
     <div class="pedido-info">
       <select id="produto-select-${pedidoCount}" name="pedidos[${pedidoCount}][produto]" onchange="atualizarPrecoTotal()">
@@ -142,11 +148,11 @@ document.getElementById('adicionarPedido').addEventListener('click', () => {
       <p class="preco-produto">Preço: R$ <span id="preco-produto-${pedidoCount}">0.00</span></p>
     </div>
   `;
-  pedidosContainer.appendChild(novoPedido);
-  pedidoCount++;
-});
+      pedidosContainer.appendChild(novoPedido);
+      pedidoCount++;
+    });
 
   </script>
 </body>
-</html>
 
+</html>

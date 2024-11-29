@@ -44,8 +44,7 @@ const visualizarFornecedor = async (req, res) => {
       quantidade: pedido.quantidade || null,
     }));
 
-    console.log('Fornecedor:', JSON.stringify(fornecedor, null, 2));
-    console.log('Pedidos válidos:', JSON.stringify(validPedidos, null, 2));
+    
 
     // Renderizar a página com os dados do fornecedor e pedidos filtrados
     res.render('fornecedores/get', {
