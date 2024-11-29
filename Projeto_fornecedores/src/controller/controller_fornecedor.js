@@ -198,14 +198,31 @@ const deletarFornecedor = async (req, res) => {
 
 const gerarPDF = async (req, res) => {
   try {
-    const fornecedor = await Fornecedor.findOne({ _id: req.params.id });
+    const fornecedor = await Fornecedor.findOne({ _id: req.params.id })
+    .populate({
+      path: 'pedidos', // Popula os pedidos
+      populate: {
+        path: 'produto', // Popula o produto dentro do pedido
+        model: 'Produto',
+      },
+    });
     if (!fornecedor) {
       return res.status(404).render('error', { message: 'Fornecedor não encontrado' });
     }
+
+    const validPedidos = fornecedor.pedidos.map((pedido) => ({
+      produto: pedido.produto ? pedido.produto : null,
+      quantidade: pedido.quantidade || null,
+    }));
+
+    console.log('Fornecedor:', JSON.stringify(fornecedor, null, 2));
+    console.log('Pedidos válidos:', JSON.stringify(validPedidos, null, 2));
+
+
     res.render('fornecedores/gegarPDF', {
       title: 'Visualizar Fornecedor',
       style: 'fornecedor/estilo_pdf.css',
-      fornecedor
+      fornecedor: { ...fornecedor.toObject(), pedidos: validPedidos },
     });
   } catch (error) {
     console.error('Erro ao carregar fornecedor:', error);

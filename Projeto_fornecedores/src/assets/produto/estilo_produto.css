@@ -1,0 +1,122 @@
+/* Container principal */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Título principal */
+h1 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Botão para adicionar cliente */
+.button3 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #ff4c4c;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.button3:hover {
+  background-color: #cc3c3c;
+}
+
+/* Lista de clientes */
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Estilo para cada item da lista */
+ul li {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  text-align: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+ul li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Nome do produto (link) */
+.button1 {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.button1:hover {
+  color: #0056b3;
+}
+
+/* Imagem do produto */
+.fornecedor-imagem {
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+/* Botões de editar e excluir */
+.button2 {
+  display: inline-block;
+  margin: 5px;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.button2 svg {
+  vertical-align: middle;
+}
+
+.button2:first-child {
+  background-color: #28a745;
+}
+
+.button2:first-child:hover {
+  background-color: #218838;
+}
+
+.button2:last-child {
+  background-color: #dc3545;
+}
+
+.button2:last-child:hover {
+  background-color: #c82333;
+}
+
+/* Seção de "não há clientes" */
+.no-data {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
+}

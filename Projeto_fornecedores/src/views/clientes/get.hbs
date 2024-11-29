@@ -27,44 +27,8 @@
       <span id="filial">{{loja.filial}}</span>
     </div>
 
-    <!-- Seção de Pedidos 
+    <!-- Seção de Fornecedores -->
     <div id="pedidos-section">
-      <h2>Pedidos</h2>
-      <div id="pedidos">
-        {{#each fornecedor.pedidos}}
-        <div class="pedido">
-          <label for="produto-{{@index}}">Produto</label>
-          <span id="produto-{{@index}}">
-            {{#if this.produto}}
-            {{this.produto.nome}}
-            {{else}}
-            Produto não disponível
-            {{/if}}
-          </span>
-
-          <label for="preco-{{@index}}">Preço</label>
-          <span id="preco-{{@index}}">
-            {{#if this.produto}}
-            R${{this.produto.preco}} 
-            {{else}}
-            Preço não disponível
-            {{/if}}
-          </span>
-
-          <label for="quantidade-{{@index}}">Quantidade</label>
-          <span id="quantidade-{{@index}}">
-            {{#if this.quantidade}}
-            {{this.quantidade}} 
-            {{else}}
-            Quantidade não disponível
-            {{/if}}
-          </span>
-        </div>
-        {{/each}}
-      </div>
-    </div>
--->
-    <div id="fornecedores-section">
       <h2>Fornecedores</h2>
       <div id="fornecedores">
         {{#if fornecedores.length}}
@@ -72,10 +36,40 @@
         <div class="fornecedor">
           <label for="fornecedor-{{@index}}">Nome:</label>
           <span id="fornecedor-{{@index}}">{{this.nome}}</span>
-          {{#each fornecedores.pedidos}}
-          <label for="fornecedor-{{@index}}">Pedidos</label>
-          <span>{{this.produto.nome}}</span>
-          {{/each}}
+
+          <!-- Pedidos dos fornecedores -->
+          <div id="pedidos"> <!-- Added Flexbox container here -->
+            {{#each this.pedidos}}
+            <div class="pedido">
+              <label for="produto-{{@index}}">Produto</label>
+              <span id="produto-{{@index}}">
+                {{#if this.produto}}
+                {{this.produto.nome}}
+                {{else}}
+                Produto não disponível
+                {{/if}}
+              </span>
+
+              <label for="preco-{{@index}}">Preço</label>
+              <span id="preco-{{@index}}">
+                {{#if this.produto}}
+                R${{this.produto.preco}} 
+                {{else}}
+                Preço não disponível
+                {{/if}}
+              </span>
+
+              <label for="quantidade-{{@index}}">Quantidade</label>
+              <span id="quantidade-{{@index}}">
+                {{#if this.quantidade}}
+                {{this.quantidade}} 
+                {{else}}
+                Quantidade não disponível
+                {{/if}}
+              </span>
+            </div>
+            {{/each}}
+          </div> <!-- Close Flexbox container -->
         </div>
         {{/each}}
         {{else}}
@@ -85,9 +79,11 @@
     </div>
 
     <!-- Botões -->
-    <button class="gerar-pdf" onclick="window.location.href = '/Home/clientes/pdf/{{cliente._id}}';">Visualizar
-      PDF</button>
+    <button class="gerar-pdf" onclick="window.location.href = '/Home/clientes/pdf/{{cliente._id}}';">Visualizar PDF</button>
     <button class="back-button" onclick="window.location.href = '/Home/clientes';">Voltar</button>
+
+    <!-- Link de voltar -->
+    <a href="/Home/clientes" class="back-link">Voltar para lista de clientes</a> <!-- Ensure this link has a class if styled -->
   </div>
 </body>
 
