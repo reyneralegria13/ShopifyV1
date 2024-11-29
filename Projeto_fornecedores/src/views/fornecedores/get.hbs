@@ -28,30 +28,45 @@
     </div>
 
     <!-- Pedidos -->
-    {{#if fornecedor.pedidos.length}}
     <div id="pedidos-section">
       <h2>Pedidos</h2>
       <div id="pedidos">
         {{#each fornecedor.pedidos}}
         <div class="pedido">
-          <label for="item-{{@index}}">Item</label>
-          <span id="item-{{@index}}">{{this.item.nome}}</span>
+          <label for="produto-{{@index}}">Produto</label>
+          <span id="produto-{{@index}}">
+            {{#if this.produto}}
+            {{this.produto.nome}} <!-- Nome do produto -->
+            {{else}}
+            Produto não disponível
+            {{/if}}
+          </span>
 
           <label for="preco-{{@index}}">Preço</label>
-          <span id="preco-{{@index}}">R${{this.item.preco}}</span>
+          <span id="preco-{{@index}}">
+            {{#if this.produto}}
+            R${{this.produto.preco}} <!-- Preço do produto -->
+            {{else}}
+            Preço não disponível
+            {{/if}}
+          </span>
 
           <label for="quantidade-{{@index}}">Quantidade</label>
-          <span id="quantidade-{{@index}}">{{this.quantidade}}</span>
+          <span id="quantidade-{{@index}}">
+            {{#if this.quantidade}}
+            {{this.quantidade}} <!-- Quantidade do pedido -->
+            {{else}}
+            Quantidade não disponível
+            {{/if}}
+          </span>
         </div>
         {{/each}}
       </div>
     </div>
-    {{else}}
-    <div id="pedidos-section">
-      <h2>Pedidos</h2>
-      <p>Nenhum pedido encontrado para este fornecedor.</p>
-    </div>
-    {{/if}}
+
+
+
+
 
     <button class="gerar-pdf" id="gerar-pdf"
       onclick="window.location.href = '/Home/fornecedores/pdf/{{fornecedor._id}}';">Visualizar PDF</button>
