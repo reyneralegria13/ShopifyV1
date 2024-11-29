@@ -60,7 +60,7 @@ const addProduto = async (req, res) => {
             }
         });
 
-        await novaLoja.save(); // Salva a nova loja no banco de dados
+        await novoproduto.save(); // Salva a nova loja no banco de dados
         res.redirect('/Home/produto'); // Redireciona para a lista de lojas após salvar
     } catch (error) {
         console.error('Erro ao adicionar produto:', error);
