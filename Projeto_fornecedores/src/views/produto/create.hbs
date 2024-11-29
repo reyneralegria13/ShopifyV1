@@ -8,16 +8,31 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Adicionar Fornecedor</h1>
-        <form action="/Home/produtos" method="POST" enctype="multipart/form-data">
-            <input type="text" name="nome" placeholder="Nome" required>
-            <input type="number" name="preco" placeholder="Preço">
-            <input type="file" name="imagem" accept="image/*" required>
-            
-                        <button type="submit">Salvar</button>
-            <button class="back-button" id="backButton" onclick="window.location.href = '/Home/produto';">Voltar</button>
-        </form>
+    <div class="main-container">
+        <div class="right-side">
+            <h1>Adicionar Fornecedor</h1>
+            <form action="/Home/produtos" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" id="nome" placeholder="Nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="preco">Preço:</label>
+                    <input type="number" name="preco" id="preco" placeholder="Preço" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="imagem">Imagem:</label>
+                    <input type="file" name="imagem" id="imagem" accept="image/*" class="custom-file-input" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="button-back" id="backButton" onclick="window.location.href = '/Home/produto';">Voltar</button>
+                    <button type="submit" class="button-submit">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 

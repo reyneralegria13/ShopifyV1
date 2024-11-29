@@ -40,8 +40,8 @@ const listarProdutos = async (req, res) => {
 const criarProduto = (req, res) => {
     try {
         res.render('produto/create', {
-            title: 'Criar Loja',
-            style: 'clientes/estilo_addCliente.css', // Estilo específico da página de criação
+            title: 'Criar Loja', 
+            style: 'produto/estilo_addProduto.css', // Estilo específico da página de criação
         });
     } catch (error) {
         console.error('Erro ao carregar formulário de criação:', error);
