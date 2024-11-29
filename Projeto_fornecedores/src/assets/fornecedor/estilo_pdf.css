@@ -1,0 +1,113 @@
+/* Configuração para adaptar o conteúdo ao formato A4 */
+@page {
+    size: A4;
+    margin: 1mm;
+    
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 210mm; /* Largura máxima da página A4 */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Títulos principais */
+  h1, h2 {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 18px;
+    color: #444;
+  }
+  
+  /* Estilização dos rótulos e informações */
+  .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    width: 30%; /* Largura fixa para alinhamento */
+    text-align: left;
+  }
+  
+  .form-group span {
+    width: 65%; /* Largura para conteúdo */
+    text-align: left;
+  }
+  
+  /* Estilização da seção de pedidos */
+  #pedidos-section {
+    margin-top: 20px;
+  }
+  
+  #pedidos .pedido {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #pedidos .pedido label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  #pedidos .pedido span {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Botões */
+  button {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button.back-button {
+    background-color: #f44336; /* Vermelho para o botão de voltar */
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  /* Ajuste para o layout ao gerar PDF */
+  @media print {
+    body {
+      margin: 0;
+      font-size: 5px;
+    }
+  
+    .container {
+      padding: 0mm;
+      margin: 0mm;
+      margin: 0mm;
+      width: 100%;
+    }
+  
+    button {
+      display: none; /* Esconde os botões no PDF */
+    }
+  }
+  

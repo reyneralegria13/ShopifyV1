@@ -14,39 +14,65 @@
   <div class="container" id="container">
      <!-- Informações do Fornecedor -->
     <div id="pdf">
+    <body>
+  <div class="container">
+    <h1>Visualizar Fornecedor</h1>
+    <!-- Informações do Fornecedor -->
     <div class="form-group">
       <label for="nome">Nome</label>
       <span id="nome">{{fornecedor.nome}}</span>
     </div>
-    
+
     <div class="form-group">
       <label for="contato">Contato</label>
       <span id="contato">{{fornecedor.contato}}</span>
     </div>
-    
+
     <div class="form-group">
       <label for="endereco">Endereço</label>
       <span id="endereco">{{fornecedor.endereco}}</span>
     </div>
-    
+
     <!-- Pedidos -->
     <div id="pedidos-section">
       <h2>Pedidos</h2>
       <div id="pedidos">
         {{#each fornecedor.pedidos}}
-          <div class="pedido">
-            <label for="item-{{@index}}">Item</label>
-            <span id="item-{{@index}}">{{this.item}}</span>
+        <div class="pedido">
+          <label for="produto-{{@index}}">Produto</label>
+          <span id="produto-{{@index}}">
+            {{#if this.produto}}
+            {{this.produto.nome}} <!-- Nome do produto -->
+            {{else}}
+            Produto não disponível
+            {{/if}}
+          </span>
 
-            <label for="quantidade-{{@index}}">Quantidade</label>
-            <span id="quantidade-{{@index}}">{{this.quantidade}}</span>
-          </div>
+          <label for="preco-{{@index}}">Preço</label>
+          <span id="preco-{{@index}}">
+            {{#if this.produto}}
+            R${{this.produto.preco}} <!-- Preço do produto -->
+            {{else}}
+            Preço não disponível
+            {{/if}}
+          </span>
+
+          <label for="quantidade-{{@index}}">Quantidade</label>
+          <span id="quantidade-{{@index}}">
+            {{#if this.quantidade}}
+            {{this.quantidade}} <!-- Quantidade do pedido -->
+            {{else}}
+            Quantidade não disponível
+            {{/if}}
+          </span>
+        </div>
         {{/each}}
-         
       </div>
-     
     </div>
     </div>
+    </div>
+    <div>
+
      <button class="back-button" id="backButton" onclick="window.location.href = '/Home/fornecedores/get/{{fornecedor._id}}';">Voltar</button>
      <button id="generate-pdf">Gerar PDF</button>
   </div>
@@ -62,10 +88,10 @@ btnGererate.addEventListener('click', () => {
 const pdf = document.querySelector('#pdf');
 const options = {
 
-    margin: [10, 10, 10, 10], 
+    margin: [0, 0, 0, 0], 
     filename: `fornecedores_${nome.textContent}.pdf`,
     html2canvas: {scale: 2},
-    jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+    jsPDF: {unit: 'mm', format: 'A4', orientation: 'portrait'}
 }
 
 html2pdf().set(options).from(pdf).save();
