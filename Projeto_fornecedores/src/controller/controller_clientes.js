@@ -21,43 +21,52 @@ const listarclientes = async (req, res) => {
     }
 };
 
+// Visualizar cliente (detalhes em modo leitura)
 const visualizarCliente = async (req, res) => {
     try {
-        const loja = await Loja.findOne({ _id: req.params.id })
-
-        if (!loja) {
-            return res.status(404).render('error', { message: 'Cliente não encontrado' });
-        }
-        
-        const fornecedores = await Fornecedor.find({ _id: { $in: loja.fornecedores } }).populate({
-            path: 'pedidos',
-            populate: {
-                path: 'produto',
-                model: 'Produto',
-            },
+      // Localizar a loja com fornecedores populados
+      const loja = await Loja.findOne({ _id: req.params.id });
+  
+      if (!loja) {
+        return res.status(404).render('error', { message: 'Cliente não encontrado' });
+      }
+  
+      // Localizar fornecedores associados à loja com pedidos e produtos populados
+      const fornecedores = await Fornecedor.find({ _id: { $in: loja.fornecedores } })
+        .populate({
+          path: 'pedidos',
+          populate: {
+            path: 'produto',
+            model: 'Produto',
+          },
         });
-        if (!fornecedores) {
-            return res.status(404).render('error', { message: 'Fornecedores nao encontrados' });
-        }
-        /**const validPedidos = fornecedores.pedidos.map((pedido) => ({
-            produto: pedido.produto ? pedido.produto : null,
-            quantidade: pedido.quantidade || null,
-        })); */
-
-        res.render('clientes/get', {
-            title: 'Visualizar Cliente',
-            style: 'clientes/estilo_getcliente.css',
-            loja,
-            fornecedores
-            /**: { ...fornecedores.toObject(), pedidos: validPedidos } */
-        });
-
-
+  
+      if (!fornecedores || fornecedores.length === 0) {
+        return res.status(404).render('error', { message: 'Fornecedores não encontrados' });
+      }
+  
+      // Filtrar pedidos com dados válidos para cada fornecedor
+      const fornecedoresComPedidos = fornecedores.map((fornecedor) => ({
+        ...fornecedor.toObject(),
+        pedidos: fornecedor.pedidos.map((pedido) => ({
+          produto: pedido.produto ? pedido.produto : null,
+          quantidade: pedido.quantidade || null,
+        })),
+      }));
+  
+      // Renderizar a página com os dados da loja e fornecedores filtrados
+      res.render('clientes/get', {
+        title: 'Visualizar Cliente',
+        style: 'clientes/estilo_getcliente.css',
+        loja,
+        fornecedores: fornecedoresComPedidos,
+      });
     } catch (error) {
-        console.error('Erro ao carregar cliente: ', error);
-        res.status(500).render('error', { message: 'Erro ao carregar cliente' });
+      console.error('Erro ao carregar cliente:', error);
+      res.status(500).render('error', { message: 'Erro ao carregar cliente. Por favor, tente novamente mais tarde.' });
     }
-};
+  };
+  
 
 // Função para renderizar a página de criação de loja
 const criarLojaForm = (req, res) => {

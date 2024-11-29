@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const mongoose = require('mongoose')
 
 const{ listarFornecedores, visualizarFornecedor, criarFornecedor, adicionarFornecedor, editarFornecedor,
   atualizarFornecedor, deletarFornecedor, gerarPDF, vincularFornecedorCliente } = require('../controller/controller_fornecedor'); 
 
 const {listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente, vincularClienteForne, criarPedidoForm, criarPedido, vincularFornecedor} = require('../controller/controller_clientes');
+
+const {listarProdutos, criarProduto, addProduto,  EditarProduto, AtualizarProduto, deletarProduto} = require('../controller/controller_produto');
 
 const { Home } = require('../controller/controller_inicial');
 // tela inicial
@@ -32,4 +35,17 @@ router.get('/Home/clientes/edit/:id', editarCliente);// Formulário de edição 
 router.post('/Home/clientes/edits/:id', atualizarCliente);// Atualizar loja
 router.get('/Home/clientes/vincula/:id', vincularFornecedor);// formulario de vincular fornecedor a loja
 router.post('/Home/clientes/vincular/:id', vincularClienteForne);// Vincular loja ao fornecedor
+
+// Produtos
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+router.get('/Home/produto', listarProdutos);// Listar produtos
+router.get('/Home/produtos/novo', criarProduto);// Formulário de criação de produtos
+router.post('/Home/produtos', upload.single('imagem'), addProduto);// Adicionar produtos
+router.get('/Home/produtos/edit/:id', EditarProduto);// Formulário de edição de produtos
+router.post('/Home/produtos/edits/:id', upload.single('imagem'), AtualizarProduto);// Atualizar produtos
+router.get('/Home/produtos/delete/:id', deletarProduto);// Deletar produtos
+
+
 module.exports = router;

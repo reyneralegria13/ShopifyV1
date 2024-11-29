@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Fornecedor</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Adicionar Fornecedor</h1>
+        <form action="/Home/produtos" method="POST" enctype="multipart/form-data">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="number" name="preco" placeholder="Preço">
+            <input type="file" name="imagem" accept="image/*" required>
+            
+            <button type="button" id="adicionarPedido">Adicionar Pedido</button>
+            <button type="submit">Salvar</button>
+            <button class="back-button" id="backButton" onclick="window.location.href = '/Home/produto';">Voltar</button>
+        </form>
+    </div>
+</body>
+
+</html>
