@@ -1,162 +1,161 @@
-/* Reset básico */
-body,
-h1,
-h2,
-p,
-div {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  line-height: 1.6;
+  background: #6a60ff url('/images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-/* Container principal */
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  background: #fff;
+.main-container {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-side {
+  flex: 2;
+  background: #f8f8f8;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pedidos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaço entre os pedidos */
+}
+
+.pedido {
+  background: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px 30px;
+  width: calc(33.333% - 20px); /* 3 pedidos por linha */
+  box-sizing: border-box;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Cabeçalho */
-.container h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #2a7ae4;
-  font-size: 2em;
-  border-bottom: 2px solid #f4f4f4;
-  padding-bottom: 10px;
+.pedido-item {
+  margin-bottom: 10px;
 }
 
-/* Grupo de informações */
+.pedido-item label {
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.pedido-item span {
+  display: block;
+  font-size: 14px;
+  color: #555;
+}
+
+.right-side {
+  flex: 1;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center; /* Centralizando o título */
+  font-size: 24px;
+  margin-top: 0;
+}
+
 .form-group {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 15px;
 }
 
 .form-group label {
   font-weight: bold;
-  display: block;
+  color: #333;
   margin-bottom: 5px;
-  color: #555;
 }
 
 .form-group span {
-  display: block;
-  background: #f4f4f4;
+  font-size: 16px;
+  color: #555;
   padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  background-color: #f1f1f1; /* Cor de fundo para destacar os campos */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: inline-block;
 }
 
-/* Pedidos */
-#pedidos-section {
-  margin: 20px;
-  padding: 20px;
-  background-color: #f9f9f9; /* Fundo claro */
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Leve sombra */
+.form-group span.readonly {
+  background-color: #e0e0e0; /* Cor de fundo mais clara para campos não editáveis */
 }
 
-#pedidos-section h2 {
-  color: #2a7ae4;
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  padding-bottom: 5px; 
-  margin-top: 10px; 
-  border-bottom: 2px solid rgba(42,122,228,0.5); /* Linha decorativa */
-  display: inline-block; 
-}
-
-#pedidos-section ul {
-  list-style: none; 
-  padding: 0; 
-}
-
-#pedidos-section ul li {
-  background: #f9f9f9; 
-  margin: 5px 0; 
-  padding: 10px;
-  border: 1px solid #ddd; 
-  border-radius: 4px; 
-}
-
-#pedidos {
-  display: flex; 
-  flex-wrap: wrap; /* Quebra as linhas automaticamente */
-  gap: 20px; /* Espaço entre os pedidos */ 
-}
-
-.pedido {
-  background-color: #ffffff; /* Fundo branco */
-  border: 1px solid #ddd; /* Borda fina */
-  border-radius: 8px; /* Cantos arredondados */
-  padding: 15px;
-  width: calc(33.333% - 20px); /* Três colunas responsivas */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra leve */
-  font-family: Arial, sans-serif; 
-}
-
-.pedido label {
-  display: block; /* Organiza os textos como blocos */
-  font-weight: bold; /* Texto em negrito */
-  color: #555; /* Cor do texto */
-  margin-bottom: 5px; /* Espaço entre o label e o conteúdo */ 
-}
-
-.pedido span {
-  display: block; /* Conteúdo alinhado */
-  color: #333; /* Cor do conteúdo */
-  margin-bottom: 10px; /* Espaçamento entre itens */
-  font-size: 0.9rem; 
-}
-
-/* Hover para destacar o pedido */
-.pedido:hover {
-  background-color: #f4f4f4; 
-  border-color: #2a7ae4; /* Cor de destaque */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15); 
-}
-
-button,
-.gerar-pdf,
-.back-button {
-  background-color: #2a7ae4; 
-  color: white; 
-  padding: 10px 15px; 
-  border: none; 
-  border-radius: 5px; 
-  margin: 5px 0; 
-  font-size: 1rem; 
-  cursor: pointer; 
-  transition: background-color 0.3s ease, transform 0.2s ease; 
-}
-
-button:hover,
-.gerar-pdf:hover,
-.back-button:hover {
-  background-color: #1d5bbf; 
-}
-
-/* Link de voltar */
-.container a {
-  display: inline-block; 
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
   margin-top: 20px;
-  text-decoration: none; 
-  color: #fff; 
-  background:  #2a7ae4;
-  padding: 10px;
-  border-radius: 15px;
-  transition: 0.3s;
 }
 
-.container a:hover {
-  background:#1d5bbf;
+
+.button-back, .button-submit {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-back {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+  text-decoration: none;
+}
+
+.button-back:hover {
+  background-color: #e1e1e1;
+}
+
+.button-submit {
+  background-color: #2a7ae4;
+  color: white;
+  border: none;
+  text-decoration: none;
+}
+
+.button-submit:hover {
+  background-color: #0454bd;
+}
+
+/* Adicionando margin-top aos fornecedores e scrollbar */
+#fornecedores {
+  max-height: 400px;  /* Definindo altura máxima */
+  overflow-y: auto;  /* Habilitando a rolagem vertical */
+}
+
+.fornecedor {
+  margin-top: 20px;  /* Espaçamento entre fornecedores */
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .left-side {
+    order: 2;
+  }
+
+  .pedido {
+    width: 100%; /* Em telas menores, ocupará 100% da largura */
+  }
 }

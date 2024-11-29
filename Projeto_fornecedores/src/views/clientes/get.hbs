@@ -8,27 +8,9 @@
 </head>
 
 <body>
-  <div class="container">
-    <h1>Visualizar Cliente</h1>
-
-    <!-- Informações do Cliente -->
-    <div class="form-group">
-      <label for="nome">Nome</label>
-      <span id="nome">{{loja.nome}}</span>
-    </div>
-
-    <div class="form-group">
-      <label for="contato">Contato</label>
-      <span id="contato">{{loja.contato}}</span>
-    </div>
-
-    <div class="form-group">
-      <label for="filial">Filial</label>
-      <span id="filial">{{loja.filial}}</span>
-    </div>
-
-    <!-- Seção de Fornecedores -->
-    <div id="pedidos-section">
+  <div class="main-container">
+    <!-- Lado esquerdo (Pedidos) -->
+    <div class="left-side">
       <h2>Fornecedores</h2>
       <div id="fornecedores">
         {{#if fornecedores.length}}
@@ -38,38 +20,44 @@
           <span id="fornecedor-{{@index}}">{{this.nome}}</span>
 
           <!-- Pedidos dos fornecedores -->
-          <div id="pedidos"> <!-- Added Flexbox container here -->
+          <div id="pedidos" class="pedidos-container"> <!-- Adicionando o contêiner Flexbox -->
             {{#each this.pedidos}}
             <div class="pedido">
-              <label for="produto-{{@index}}">Produto</label>
-              <span id="produto-{{@index}}">
-                {{#if this.produto}}
-                {{this.produto.nome}}
-                {{else}}
-                Produto não disponível
-                {{/if}}
-              </span>
+              <div class="pedido-item">
+                <label for="produto-{{@index}}">Produto:</label>
+                <span id="produto-{{@index}}">
+                  {{#if this.produto}}
+                  {{this.produto.nome}}
+                  {{else}}
+                  Produto não disponível
+                  {{/if}}
+                </span>
+              </div>
 
-              <label for="preco-{{@index}}">Preço</label>
-              <span id="preco-{{@index}}">
-                {{#if this.produto}}
-                R${{this.produto.preco}} 
-                {{else}}
-                Preço não disponível
-                {{/if}}
-              </span>
+              <div class="pedido-item">
+                <label for="preco-{{@index}}">Preço:</label>
+                <span id="preco-{{@index}}">
+                  {{#if this.produto}}
+                  R${{this.produto.preco}} 
+                  {{else}}
+                  Preço não disponível
+                  {{/if}}
+                </span>
+              </div>
 
-              <label for="quantidade-{{@index}}">Quantidade</label>
-              <span id="quantidade-{{@index}}">
-                {{#if this.quantidade}}
-                {{this.quantidade}} 
-                {{else}}
-                Quantidade não disponível
-                {{/if}}
-              </span>
+              <div class="pedido-item">
+                <label for="quantidade-{{@index}}">Quantidade:</label>
+                <span id="quantidade-{{@index}}">
+                  {{#if this.quantidade}}
+                  {{this.quantidade}} 
+                  {{else}}
+                  Quantidade não disponível
+                  {{/if}}
+                </span>
+              </div>
             </div>
             {{/each}}
-          </div> <!-- Close Flexbox container -->
+          </div> <!-- Fechando o contêiner Flexbox -->
         </div>
         {{/each}}
         {{else}}
@@ -78,12 +66,32 @@
       </div>
     </div>
 
-    <!-- Botões -->
-    <button class="gerar-pdf" onclick="window.location.href = '/Home/clientes/pdf/{{cliente._id}}';">Visualizar PDF</button>
-    <button class="back-button" onclick="window.location.href = '/Home/clientes';">Voltar</button>
+    <!-- Lado direito (Informações do Cliente) -->
+    <div class="right-side">
+      <h1>Visualizar Cliente</h1>
 
-    <!-- Link de voltar -->
-    <a href="/Home/clientes" class="back-link">Voltar para lista de clientes</a> <!-- Ensure this link has a class if styled -->
+      <!-- Informações do Cliente -->
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <span id="nome">{{loja.nome}}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="contato">Contato:</label>
+        <span id="contato">{{loja.contato}}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="filial">Filial:</label>
+        <span id="filial">{{loja.filial}}</span>
+      </div>
+
+      <!-- Botões -->
+      <div class="form-actions">
+        <a href="/Home/clientes" class="button-back">Voltar</a>
+        <a href="/Home/clientes/pdf/{{loja._id}}" class="button-submit">Visualizar PDF</a>
+      </div>
+    </div>
   </div>
 </body>
 
