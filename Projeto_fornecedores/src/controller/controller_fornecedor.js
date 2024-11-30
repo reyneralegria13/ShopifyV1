@@ -232,8 +232,7 @@ const gerarPDF = async (req, res) => {
       quantidade: pedido.quantidade || null,
     }));
 
-    console.log('Fornecedor:', JSON.stringify(fornecedor, null, 2));
-    console.log('Pedidos válidos:', JSON.stringify(validPedidos, null, 2));
+    
 
 
     res.render('fornecedores/gegarPDF', {

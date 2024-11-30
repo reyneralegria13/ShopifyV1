@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Cliente</title>
+    <style>
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .left-side,
+        .right-side {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .fornecedor,
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .pedido-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .back-button,
+        #generate-pdf {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+
+        <div id="pdf">
+            <!-- Lado esquerdo (Pedidos) -->
+            <div class="left-side">
+                <h2>Fornecedores</h2>
+                <div id="fornecedores">
+                    {{#if fornecedores.length}}
+                    {{#each fornecedores}}
+                    <div class="fornecedor">
+                        <label for="fornecedor-{{@index}}">Nome:</label>
+                        <span id="fornecedor-{{@index}}">{{this.nome}}</span>
+
+                        <!-- Pedidos dos fornecedores -->
+                        <div id="pedidos" class="pedidos-container">
+                            {{#each this.pedidos}}
+                            <div class="pedido">
+                                <div class="pedido-item">
+                                    <label for="produto-{{@index}}">Produto:</label>
+                                    <span id="produto-{{@index}}">
+                                        {{#if this.produto}}
+                                        {{this.produto.nome}}
+                                        {{else}}
+                                        Produto não disponível
+                                        {{/if}}
+                                    </span>
+                                </div>
+
+                                <div class="pedido-item">
+                                    <label for="preco-{{@index}}">Preço:</label>
+                                    <span id="preco-{{@index}}">
+                                        {{#if this.produto}}
+                                        R${{this.produto.preco}}
+                                        {{else}}
+                                        Preço não disponível
+                                        {{/if}}
+                                    </span>
+                                </div>
+
+                                <div class="pedido-item">
+                                    <label for="quantidade-{{@index}}">Quantidade:</label>
+                                    <span id="quantidade-{{@index}}">
+                                        {{#if this.quantidade}}
+                                        {{this.quantidade}}
+                                        {{else}}
+                                        Quantidade não disponível
+                                        {{/if}}
+                                    </span>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p>Este cliente não possui fornecedores cadastrados.</p>
+                    {{/if}}
+                </div>
+            </div>
+
+            <!-- Lado direito (Informações do Cliente) -->
+            <div class="right-side">
+                <h1>Visualizar Cliente</h1>
+
+                <!-- Informações do Cliente -->
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <span id="nome">{{loja.nome}}</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="contato">Contato:</label>
+                    <span id="contato">{{loja.contato}}</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="filial">Filial:</label>
+                    <span id="filial">{{loja.filial}}</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="back-button" id="backButton"
+                onclick="window.location.href = '/Home/clientes/get/{{cliente._id}}';">Voltar</button>
+            <button id="generate-pdf">Gerar PDF</button>
+        </div>
+    </div>
+
+    <script>
+        const btnGenerate = document.querySelector('#generate-pdf');
+        const nome = document.querySelector('#nome');
+
+        btnGenerate.addEventListener('click', () => {
+            const pdf = document.querySelector('#pdf');
+            const options = {
+                margin: [0, 0, 0, 0],
+                filename: `cliente_${nome.textContent}.pdf`,
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'A4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(options).from(pdf).save();
+        });
+    </script>
+</body>
+
+</html>

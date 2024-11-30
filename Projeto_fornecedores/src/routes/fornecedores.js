@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const{ listarFornecedores, visualizarFornecedor, criarFornecedor, adicionarFornecedor, editarFornecedor,
   atualizarFornecedor, deletarFornecedor, gerarPDF, vincularFornecedorCliente } = require('../controller/controller_fornecedor'); 
 
-const {listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente, vincularClienteForne, criarPedidoForm, criarPedido, vincularFornecedor} = require('../controller/controller_clientes');
+const {listarclientes, visualizarCliente, criarLojaForm, adicionarLoja, deletarCliente, editarCliente, atualizarCliente, vincularClienteForne, criarPedidoForm, criarPedido, vincularFornecedor, gerarPDFcliente} = require('../controller/controller_clientes');
 
 const {listarProdutos, criarProduto, addProduto,  EditarProduto, AtualizarProduto, deletarProduto} = require('../controller/controller_produto');
 
@@ -35,6 +35,7 @@ router.get('/Home/clientes/edit/:id', editarCliente);// Formulário de edição 
 router.post('/Home/clientes/edits/:id', atualizarCliente);// Atualizar loja
 router.get('/Home/clientes/vincula/:id', vincularFornecedor);// formulario de vincular fornecedor a loja
 router.post('/Home/clientes/vincular/:id', vincularClienteForne);// Vincular loja ao fornecedor
+router.get('/Home/clientes/pdf/:id', gerarPDFcliente);
 
 // Produtos
 const storage = multer.memoryStorage();
