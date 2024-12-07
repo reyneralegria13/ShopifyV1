@@ -48,8 +48,8 @@ app.get('/', (req, res) => {
 connectDb()
 .then(data=>{
     console.log('Conectado ao banco de dados\n');
-    app.listen(3000, () => {
-        console.log(`Servidor rodando na porta http://localhost:${3000}/Home\n`)
+    app.listen(8000, () => {
+        console.log(`Servidor rodando na porta http://localhost:${8000}/Home\n`)
     }).on('error', err => {
         console.log('Erro ao iniciar o servidor\n',err);
     });
